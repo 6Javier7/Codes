@@ -1,0 +1,111 @@
+library(data.table)
+library(purrr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+load("movies")
+movies1 <- data.table(movies)
+
+with(movies, summary(runtime))
+with(movies, summary(genre))
+with(movies, anova(lm(critics_score ~ genre)))
+with(movies, anova(lm(critics_score ~ thtr_rel_year)))
+with(movies, boxplot(critics_score ~ genre))
+
+men <- movies1[ , lapply(.SD, mean), .SDcols = "critics_score", by = "genre"]
+med <- movies1[ , lapply(.SD, median), .SDcols = "critics_score", by = "genre"]
+des <- movies1[ , lapply(.SD, sd), .SDcols = "critics_score", by = "genre"]
+
+men[,Media := med[,2]]
+men[,Desviacion := des[,2]]
+
+
+men1 <- movies1[ , lapply(.SD, mean), .SDcols = "audience_score", by = "genre"]
+med1 <- movies1[ , lapply(.SD, median), .SDcols = "audience_score", by = "genre"]
+des1 <- movies1[ , lapply(.SD, sd), .SDcols = "audience_score", by = "genre"]
+
+movies1[, model := ifelse(genre == "Mystery & Suspense", 4.596099 + runtime*0.013243 + 0.424538, ifelse(genre == "Drama", 4.596099 + runtime*0.013243 + 0.609926, ifelse(genre == "Animation", 4.596099 + runtime*0.013243 + 0.148778, ifelse(genre == "Art House & International", 4.596099 + runtime*0.013243 + 0.665463, ifelse(genre == "Comedy", 4.596099 + runtime*0.013243 - 0.135125, ifelse(genre == "Documentary", 4.596099 + runtime*0.013243 + 1.777018, ifelse(genre == "Horror", 4.596099 + runtime*0.013243 - 0.055354, ifelse(genre == "Musical & Performing Arts", 4.596099 + runtime*0.013243 + 1.197458, ifelse(genre == "Other", 4.596099 + runtime*0.013243 + 0.562645, ifelse(genre == "Science Fiction & Fantasy", 4.596099 + runtime*0.013243 - 0.178132, ifelse(genre == "Other", 4.596099 + runtime*0.013243 + 0.562645, ifelse(genre == "Action & Adventure", 4.596099 + runtime*0.013243, 0))))))))))))]
+
+movies1[, diff := abs(imdb_rating - model)]
+
+men1[,Media := med1[,2]]
+men1[,Desviacion := des1[,2]]
+
+minin <- movies1[ , lapply(.SD, min, na.rm = T), .SDcols = "diff", by = "genre"]
+maximum <- movies1[ , lapply(.SD, max, na.rm = T), .SDcols = "diff", by = "genre"]
+
+
+devil_all_the_time <- predict(m3, data.frame(runtime = 139, genre = "Drama")) + c(1, -1)*(0.127896 + 0.237685) * qt(.975, 638)
+mulan <- predict(m3, data.frame(runtime = 115, genre = "Action & Adventure")) + c(1, -1)*(0.237685) * qt(.975, 638)
+
+mas alejada pelicula es "Viva Knievel!" con una diferencia de 3.9
+las mas acertada es "Benda Bilili!" con una diferencia de 0.0012
+
+entre las mas acertadas que me gusta esta "Cloud Atlas", "The Postman Always Rings Twice"
+entre las mas alejadas que me gusta es "Mad Max 2: The Road Warrior", "Memento"
+
+predict(m3, dta.frame(runtime = 139, genre = "Drama"))
+
+ggplot(movies1, aes(imdb_rating)) + geom_density(kernel = "gaussian") + 
+ theme_bw()
+
+with(movies1, summary(imdb_rating))
+
+men2 <- movies1[ , lapply(.SD, mean), .SDcols = "imdb_rating", by = "genre"]
+med2 <- movies1[ , lapply(.SD, median), .SDcols = "imdb_rating", by = "genre"]
+des2 <- movies1[ , lapply(.SD, sd), .SDcols = "imdb_rating", by = "genre"]
+
+men2[,Media := med2[,2]]
+men2[,Desviacion := des2[,2]]
+
+
+ggplot(movies1, aes(critics_score, genre, col = genre)) + 
+ geom_violin(scale = "area" ) +
+  theme_minimal()
+
+ggplot(movies1, aes(audience_score, genre, col = genre)) + 
+ geom_violin(scale = "area" ) +
+  theme_minimal()
+
+ggplot(movies1, aes(imdb_rating, genre, col = genre)) + 
+ geom_violin(scale = "area" ) +
+  theme_minimal()
+
+m1 <- with(movies1, lm(audience_score ~ runtime + genre))
+m2 <- with(movies1, lm(critics_score ~ runtime + genre))
+
+m3 <- with(movies1, lm(imdb_rating ~ runtime + genre))
+m4 <- with(movies1, lm(imdb_rating ~ runtime + genre + thtr_rel_year))
+
+ggplot(movies1, aes(runtime, imdb_rating, fill = genre, col = genre)) + 
+ geom_point() +
+  ylim(0, 11) +
+  geom_smooth(model = m3) +
+   facet_wrap(~ genre) +
+    theme_bw()
+
+ggplot(movies1, aes(runtime, audience_score, fill = genre, col = genre)) + 
+ geom_point() +
+  ylim(0, 170) +
+  geom_smooth(model = m1) +
+   facet_wrap(~ genre) +
+    theme_bw()
+
+ggplot(movies1, aes(runtime, audience_score, fill = genre, col = genre)) + 
+ geom_point() +
+  ylim(0, 170) +
+  geom_smooth(model = m2) +
+   facet_wrap(~ genre) +
+    theme_bw()
+
+ggplot(movies1, aes(runtime, critics_score, fill = genre, col = genre)) + 
+ geom_point() +
+  ylim(0, 170) +
+  geom_smooth(model = m2) +
+   facet_wrap(~ genre) +
+    theme_bw()
+
+    ```{r load-data}
+#load("movies.Rdata")
+```
