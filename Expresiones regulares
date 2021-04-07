@@ -1,0 +1,368 @@
+Expresiones regulares
+
+https://www.regular-expressions.info/tutorial.html
+
+A regular expression “engine” is a piece of software that can process regular expressions, trying to match the pattern to the given string. 
+
+As usual in the software world, different regular expression engines are not fully compatible with each other. It is not possible to describe every kind of engine and regular expression syntax (or “flavor”) in this tutorial
+
+Basically, a regular expression is a pattern describing a certain amount of text. Their name comes from the mathematical theory on which they are based. But we will not dig into that. You will usually find the name abbreviated to "regex" or "regexp". This tutorial uses "regex", because it is easy to pronounce the plural "regexes". On this website, regular expressions are highlighted in red as regex.
+
+A regular expression is a string that defines a pattern that could be contained within another string. 
+regular expression can be used for searching for a string, searching within a string, or replacing one part of a string with another string.
+
+Regular expressions use characters to define patterns of other characters. Although that approach may seem problematic at first, we’ll discuss meta-characters (characters that describe other characters) and how you can use them to create powerful regular expressions.
+
+Below is a table of several important metacharacters:
+
+Metacharacter	Meaning
+.	Any Character
+\w	A Word
+\W	Not a Word
+\d	A Digit
+\D	Not a Digit
+\s	Whitespace
+\S	Not Whitespace
+[xyz]	A Set of Characters "brackets"
+[^xyz]	Negation of Set "brackets"
+[a-z]	A Range of Characters
+^	Beginning of String "hat"
+$	End of String
+\n	Newline
++	One or More of Previous "Kleene Plus"
+*	Zero or More of Previous "Kleene Star"
+?	Zero or One of Previous
+|	Either the Previous or the Following
+{5}	Exactly 5 of Previous
+{2, 5}	Between 2 and 5 or Previous
+{2, }	More than 2 of Previous
+
+Flags
+
+We are learning how to construct a regex but forgetting a fundamental concept: flags.
+
+A regex usually comes within this form /abc/, where the search pattern is delimited by two slash characters /. At the end we can specify a flag with these values (we can also combine them each other):
+
+g (global) does not return after the first match, restarting the subsequent searches from the end of the previous match
+m (multi-line) when enabled ^ and $ will match the start and end of a line, instead of the whole string
+i (insensitive) makes the whole expression case-insensitive (for instance /aBc/i would match AbC)
+
+
+i             Makes the whole expression case-insensitive. For example, /aBc/i would match AbC
+g             Retain the index of the last match, allowing subsequent searches to start from the end of the previous match. 
+
+Without the global flag, subsequent searches will return the same match.
+RegExr only searches for a single match when the global flag is disabled to avoid infinite match errors.
+
+m             When the multiline flag is enabled, beginning and end anchors (^ and $) will match the start and end of a line, instead of the start and end of the whole string.
+
+u             When the unicode flag is enabled, you can use extended unicode escapes in the form \x{FFFFF}.
+y             The expression will only match from its lastIndex position and ignores the global (g) flag if set. Because each search in RegExr is discrete, this flag has no further impact on the displayed results.              
+0
+Twelve characters have special meanings in regular expressions: the backslash \, the caret ^, the dollar sign $, the period or dot ., the vertical bar or pipe symbol |, the question mark ?, the asterisk or star * "Kleene Star", the plus sign + "Kleene Plus", the opening parenthesis (, the closing parenthesis ), the opening square bracket [, and the opening curly brace {. These special characters are often called "metacharacters". Most of them are errors when used alone.
+
+Metacharacters
+
+Metacharacters are characters with a special meaning:
+
+Anchors — '^' and '$'
+
+^The    matches any string that starts with The "hat" or "the caret"
+end$    matches a string that ends with end
+.       matches any character 
+?       The question mark makes the preceding token in the regular expression optional.
+
+Use the "." operator carefully since often class or negated character class (which we’ll cover next) are faster and more precise.
+
+
+Quantifiers — '*' '+' '?' and '{}'
+
+abc*        matches a string that has ab followed by zero or more c
+abc+        matches a string that has ab followed by one or more c
+abc?        matches a string that has ab followed by zero or one c
+Colou?r     Matches 0 or 1 of the preceding token, effectively making it optional. (Color, Colour)
+abc{2}      matches a string that has ab followed by 2 c
+abc{2,}     matches a string that has ab followed by 2 or more c
+abc{2,5}    matches a string that has ab followed by 2 up to 5 c
+a(bc)*      matches a string that has a followed by zero or more copies of the sequence bc
+a(bc){2,5}  matches a string that has a followed by 2 up to 5 copies of the sequence bc
+
++ Possesive
+? Lazy
+ greedy per se
+
+Lazy Quantifiers are Expensive
+It's important to understand how the lazy .*? works in this example because there is a cost to using lazy quantifiers.
+
+As you can see, for each character matched by the .*?, the engine has to backtrack. From a computing standpoint, this process of matching one item, advancing, failing, backtracking, expanding is "expensive".
+
+On a modern processor, for simple patterns, this will likely not matter. But if you want to craft efficient regular expressions, you must pay attention to use lazy quantifiers only when they are needed. Lower on the page, I will introduce you a far more efficient way of doing things.
+
+Ejemplo Lazy
+
+Greedy = texto {START} Mary {END} had a {START} little lamb {END} regex {START}.*{END}
+Lazy = texto {START} Mary {END} had a {START} little lamb {END} regex {START}.*?{END}
+
+
+Possessive quantifiers match fragments of string as solid blocks that cannot be backtracked into: it's all or nothing. This behavior is particularly useful when you know there is no valid reason why the engine should ever backtrack into a section of matched text, as you can save the engine a lot of needless work.
+
+These quantifiers can be used with any character or special metacharacters, for example a+ (one or more a's), [abc]+ (one or more of any a, b, or c character) and .* (zero or more of any character).
+
+
+Greedy and Lazy match
+The quantifiers ( * + {}) are greedy operators, so they expand the match as far as they can through the provided text "<>".
+
+?                Makes the preceding quantifier lazy, causing it to match as few characters as possible. By default, quantifiers are greedy, and will match as many characters as possible.
+
+<.+?>            matches any character one or more times included inside < and >, expanding as neede
+Notice that a better solution should avoid the usage of . in favor of a more strict regex:
+
+<[^<>]+>         matches any character except < or > one or more times included inside < and >
+
+
+Sets
+
+A "character class" matches only one out of several characters. To match an a or an e, use [ae]. You could use this in gr[ae]y to match either gray or grey. A character class matches only a single character. gr[ae]y does not match graay, graey or any such thing. The order of the characters inside a character class does not matter.
+
+A set is a set of characters inside a pair of square brackets [] with a special meaning:
+
+OR operator — '|' "pipe symbol"  or '[]'le dicen "brackets"
+
+a(b|c)           matches a string that has a followed by b or c
+a[bc]            same as previous
+[a-fA-F0-9]      a string that represents a single hexadecimal digit, case insensitively
+[0-9]%           a string that has a character from 0 to 9 before a % sign
+[^a-zA-Z]        a string that has not a letter from a to z or from A to Z. In this case the ^ is used as negation of the expression
+
+
+Grouping and capturing — ()
+
+a(bc)           parentheses create a capturing group with value bc
+a(?:bc)*        using ?: we disable the capturing group
+(?:abc)         non-capturing group
+a(?<foo>bc)     using ?<foo> we put a name to the group
+
+Look-ahead and Look-behind — (?=) and (?<=)
+
+(?=foo)	    Lookahead	        Asserts that what immediately follows the current position in the string is foo
+(?<=foo)	Lookbehind	        Asserts that what immediately precedes the current position in the string is foo
+(?!foo)	    Negative Lookahead	Asserts that what immediately follows the current position in the string is not foo
+(?<!foo)	Negative Lookbehind	Asserts that what immediately precedes the current position in the string is not foo
+
+
+d(?=r)       matches a d only if is followed by r, but r will not be part of the overall regex match
+(?<=r)d      matches a d only if is preceded by an r, but r will not be part of the overall regex match
+d(?!r)       matches a d only if is not followed by r, but r will not be part of the overall regex match
+(?<!r)d      matches a d only if is not preceded by an r, but r will not be part of the overall regex match
+
+Back-references — \1
+
+( )              "brackes" Use parentheses  to create a back reference. 
+Use $1, $2, ... (Java, Perl, JavaScript) or \1, \2, ... (Python) to retreive the back references in sequential order.
+([abc])\1          using \1 it matches the same text that was matched by the first capturing group
+([abc])([de])\2\1  we can use \2 (\3, \4, etc.) to identify the same text that was matched by the second (third, fourth, etc.) capturing group
+(?<foo>[abc])\k<foo>   we put the name foo to the group and we reference it later (\k<foo>). The result is the same of the first regex
+
+
+Special Sequences
+
+A special sequence is a \ followed by one of the characters in the list below, and has a special meaning:
+
+Character classes — '\d' '\w' '\s' and '.'
+\          "backslash"  
+\d  \D     matches a single character that is a digit
+\w  \W     matches a word character (alphanumeric character plus underscore)
+\s  \S     matches a whitespace character (includes tabs and line breaks
+\b	       "boundary" Returns a match where the specified characters are at the beginning or at the end of a wor\S
+\A	       Returns a match if the specified characters are at the beginning of the string 
+\Z	       Returns a match if the specified characters are at the end of the string
+\<, \>:    start-of-word and end-of-word respectively, similar to \b. E.g., \<cat\> matches the word "cat" in the input string.
+
+The word boundary \b matches positions where one side is a word character (usually a letter, digit or underscore—but see below for variations across engines) and the other side is not a word character (for instance, it may be the beginning of the string or a space character).
+
+Not-a-word-boundary: \B
+\B matches all positions where \b doesn't match. Therefore, it matches:
+
+✽ When neither side is a word character, for instance at any position in the string $=(@-%++) (including the beginning and end of the string)
+✽ When both sides are a word character, for instance between the H and the i in Hi!
+
+
+Notice that you can match also non-printable characters like tabs \t, new-lines \n, carriage returns \r.
+
+\t         matches a tab character 
+\n         matches a new lines
+\r         carriage returns
+\0         Matches a NULL character (char code 0). 
+\f         Matches a FORM FEED character (char code 12).
+\v         Matches a VERTICAL TAB character (char code 11)
+\cI        Escaped control character in the form \cZ. This can range from \cA (SOH, char code 1) to \cZ (SUB, char code 26) \cI matches TAB (char code 9).
+\xFF       Hexadecimal escaped character in the form \xFF.   ©2014 "coge la c"
+\uFFFF     Unicode escaped character in the form \uFFF     ©2014 "coge la c"
+\u{FFFF}   Unicode escaped character in the form \u{FFFF}. Supports a full range of unicode point escapes with any number of hex digits. 
+
+Many regex flavors also support the tokens \cA through \cZ to insert ASCII control characters. The letter after the backslash is always a lowercase c. The second letter is an uppercase letter A through Z, to indicate Control+A through Control+Z. These are equivalent to \x01 through \x1A (26 decimal). E.g. \cM matches a carriage return, just like \r, \x0D, and \u000D. Most flavors allow the second letter to be lowercase, with no difference in meaning. Only Java requires the A to Z to be uppercase.
+
+if your regular expression engine supports Unicode, you can use \uFFFF or \x{FFFF} to insert a Unicode character. The euro currency sign occupies Unicode code point U+20AC. If you cannot type it on your keyboard, you can insert it into a regular expression with \u20AC or \x{20AC}. See the tutorial section on Unicode for more details on matching Unicode code points.
+
+\R is a special escape that matches any line break, including Unicode line breaks. What makes it special is that it treats CRLF pairs as indivisible. If the match attempt of \R begins before a CRLF pair in the string, then a single \R matches the whole CRLF pair. \R will not backtrack to match only the CR in a CRLF pair. So while \R can match a lone CR or a lone LF, \R{2} or \R\R cannot match a single CRLF pair. The first \R matches the whole CRLF pair, leaving nothing for the second one to match.
+
+Boundaries — \b and \B
+
+\b	Returns a match where the specified characters are at the beginning or at the end of a word
+
+r"\bain"
+r"ain\b"
+
+\A	Returns a match if the specified characters are at the beginning of the string	
+
+"\AThe"
+
+\Z	Returns a match if the specified characters are at the end of the string
+
+"Spain\Z"
+
+\b represents an anchor like caret (it is similar to $ and ^) matching positions where one side is a word character (like \w) and the other side is not a word character (for instance it may be the beginning of the string or a space character).
+
+
+In order to be taken literally, you must escape the characters ^.[$()|*+?{\with a backslash \ as they have special meaning.
+
+[+]	       In sets, +, *, ., |, (), $,{} has no special meaning, so [+] means: return a match for any + character in the string
+\$\d       matches a string that has a $ before one digit
+
+
+Examples
+https://regexone.com/lesson/nested_groups? #ejercicios bobitos
+
+^.*John.*$ "seleciona toda la linea donde la pallabra jhon este escrita"
+^.*\b(one|two|three)\b.*$  "seleciona cualquier lienea donde este cualquiera de las palabras one, two o three"
+
+Additionally, there is a special metacharacter \b which matches the boundary between a word and a non-word character. It's most useful in capturing entire words (for example by using the pattern \w+\b).
+
+reg(ular expressions?|ex(p|es)?) "Marca la palabras regular expression, regex"
+([0-9])\1+ "Marca numero repetidos como 000 o 222"
+^.*?\b(one|two|three)\b.*$ "Lo mismo qu el anterior"
+^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$ "seleciona lineas que satisfagan todos los requerimientos"
+^((?!regexp).)*$ "selecciona lineas que no contenga la palabra reglex"
+^(?=.*?\bmust-have\b)(?=.*?\bmandatory\b)((?!avoid|illegal).)*$. "esta es para seleccionar lienas que cumplann con ciertos 
+[A-Za-z0-9_] "marca todos los caracteres alfanumericos"
+^(IMG(\d+))\.png$
+^(grupo(grupo anidado))\.png$ pero el grupo debe señalar cosas que no señala el gru´po anidado ejemplo (\D+(\d+))
+
+There are still topics within regular expressions that we have not yet explored, – things like greedy vs. non-greedy expressions, posix notation and more. We will try to elaborate more on these in future lessons.
+
+requerimientos y que no tengan otros especificos"
+
+Imagine for example that you had a command line tool to list all the image files you have in the cloud. You could then use a pattern such as ^(IMG\d+\.png)$ to capture and extract the full filename, but if you only wanted to capture the filename without the extension, you could use the pattern ^(IMG\d+)\.png$ which only captures the part before the period.
+
+One of the most basic functions in R that uses regular expressions is the grepl()
+
+grepl() function, which takes two arguments: a regular expression and a string to be searched. If the string contains the specified regular expression then grepl() will return TRUE, otherwise it will return FALSE
+
+regular_expression <- "a"
+string_to_search <- "Maryland"
+
+grepl(regular_expression, s         matches a tab character tring_to_search)
+
+he first metacharacter that we’ll discuss is "." named "Period"
+The metacharacter that only consists of a period represents any character other than a new line (we’ll discuss new lines soon). Let’s take a look at some examples using the peroid regex:
+
+As you can see the period metacharacter is very liberal. This metacharacter is most userful when you don’t care about ae set of characters in a regular expression. For example:
+
+grepl("a.b", c("aaa", "aab", "abb", "acadb"))
+[1] FALSE  TRUE  TRUE  TRUE
+
+In the case above grepl() returns TRUE for all strings that contain an a followed by any other character followed by a b.
+
+You can specify a regular expression that contains a certain number of characters or metacharacters using the enumeration metacharacters.
+
+The "+" metacharacter indicates that one or more of the preceding expression should b present
+and "*" indicates that zero or more of the preceding expression is present.
+
+# Does "Maryland" contain one or more of "a" ?
+grepl("a+", "Maryland")
+
+You can also specify exact numbers of expressions using curly brackets {}. For example "a{5}" specifies “a exactly five times,” "a{2,5}" specifies “a between 2 and 5 times,” and "a{2,}" specifies “a at least 2 times.” Let’s take a look at some examples:
+
+# Does "Mississippi" contain exactly 2 adjacent "s" ?
+grepl("s{2}", "Mississippi")
+[1] TRUE
+
+# Does "Mississippi" contain between 2 and 3 adjacent "i" ?
+grepl("i{2,3}", "Mississippi")
+[1] FALSE
+
+# Does "Mississippi" contain between 2 adjacent "iss" ?
+grepl("(iss){2}", "Mississippi")
+[1] TRUE
+
+# Does "Mississippi" contain between 2 adjacent "ss" ?
+grepl("(ss){2}", "Mississippi")
+[1] FALSE
+
+# Does "Mississippi" contain the pattern of an "i" followed by 
+# 2 of any character, with that pattern repeated three times adjacently?
+grepl("(i.{2}){3}", "Mississippi")
+
+You can specify sets of characters with regular expressions, some of which come built in, but you can build your own character sets too. 
+
+First we’ll discuss the built in character sets: words ("\\w"), 
+digits ("\\d"), and whitespace characters ("\\s").
+
+Words specify any letter, digit, or a underscore, digits specify the digits 0 through 9, and whitespace specifies line breaks, tabs, or spaces.
+
+not words ("\\W"), not digits ("\\D"), and not whitespace characters ("\\S"). 
+
+# "\n" is the metacharacter for a new line
+# "\t" is the metacharacter for a tab
+grepl("\\s", "\n\t   ")
+
+You can also specify specific character sets using straight brackets "[]". For example a character set of just the vowels would look like: "[aeiou]". You can find the complement to a specific character by putting a carrot "^" after the first bracket. For example "[^aeiou]"
+
+You can also specify ranges of characters using a hyphen "-" inside of the brackets. For example "[a-m]" matches all of the lowercase characters between a and m
+
+You might be wondering how you can use regular expressions to match a particular punctuation mark since many punctuation marks are used as metacharacters! Putting two backslashes before a punctuation mark that is also a metacharacter indicates that you are looking for the symbol and not the metacharacter meaning. For example "\\." indicates you are trying to match a period in a string. Let’s take a look at a few examples:
+
+grepl("\\+", "tragedy + time = humor")
+[1] TRUE
+
+
+There are also metacharacters for matching the beginning and the end of a string which are "^" and "$" respectively. Let’s take a look at a few examples:
+
+The last metacharacter we’ll discuss is the OR metacharacter ("|"). The OR metacharacter matches either the regex on the left or the regex on the right side of this character. A few examples:
+
+Finally we’ve learned enough to create a regular expression that matches all state names that both begin and end with a vowel:
+
+We match the beginning of a string.
+We create a character set of just capitalized vowels.
+We specify one instance of that set.
+Then any number of characters until:
+A character set of just lowercase vowels.
+We specify one instance of that set.
+We match the end of a string.
+
+start_end_vowel <- "^[AEIOU]{1}.+[aeiou]{1}$"
+vowel_state_lgl <- grepl(start_end_vowel, state.name)
+head(vowel_state_lgl)
+x
+Summary
+As you’ve seen, the application fields of regex can be multiple and I’m sure that you’ve recognized at least one of these tasks among those seen in your developer career, here a quick list:
+
+1.data validation (for example check if a time string i well-formed)
+2.data scraping (especially web scraping, find all pages that contain a certain set of words eventually in a specific order)
+3.data wrangling (transform data from “raw” to another format)
+4.string parsing (for example catch all URL GET parameters, capture text inside a set of parenthesis)
+5.string replacement (for example, even during a code session using a common IDE to translate a Java or C# class in the respective JSON 
+6.object — replace “;” with “,” make it lowercase, avoid type declaration, etc.)
+7.syntax highlightning, file renaming, packet sniffing and many other applications involving strings (where data need not be textual)
+
+“Houston, we have a problem with "string one" and "string two". Please respond.” 
+
+
+Unix
+
+This chapter provides a brief history of the development of the Unix system.
+Understanding where and how Unix developed and the intent behind its design will
+help you use the tools better. The chapter also introduces the guiding principles of
+the Software Tools philosophy, which are then demonstrated throughout the rest of
+the book.
+

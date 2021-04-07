@@ -1,0 +1,137 @@
+Markdown features
+
+Theme
+united, darkly, cosmo, lumen, paper, sandstone
+
+highlight
+tango, pygments, espresso, zenburn, breezedark
+
+df_print
+tibble, paged
+
+```{r}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+We can then use the code in an inline R expression `r colorize("some words in red", "red")`, which will create some words in red (you will not see the red color if you are reading this book printed in black and white).
+
+Cache time-consuming code chunks
+```{r import-data, cache=TRUE}
+d <- read.csv('my-precious.csv')
+```
+
+par(mar = c(4, 4, 2, .1))
+curve(dnorm, -3, 3, xlab = '$x$', ylab = '$\\phi(x)$',
+      main = 'The density function of $N(0, 1)$')
+text(-1, .2, cex = 3, col = 'blue',
+  '$\\phi(x)=\\frac{1}{\\sqrt{2\\pi}}e^{\\frac{-x^2}{2}}$') #pone la expression en el grafico
+
+
+# left, center, center, right, right
+knitr::kable(iris2, align = "lccrr")
+
+knitr::kable(iris2, col.names = gsub("[.]", " ", names(iris))) #expresiones regulares
+
+---
+title: "Untitled"
+author: "Anonymous"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: true
+    highlight: tango
+    df_print: paged
+    keep_md: true
+    toc: true
+    toc_depth: 2
+---
+
+---
+title: "Untitled"
+author: "Anonymous"
+output:
+  html_document:
+    latex_engine: xelatex
+    keep_tex: true
+    theme: darkly
+    highlight: zenburn
+    df_print: paged
+    keep_md: true
+    toc: true
+    toc_depth: 2
+---
+
+
+---
+title: "Untitled"
+author: "Anonymous"
+date: "3/4/2021"
+output: 
+    html_document:
+        theme: sandstone
+        highlight: tango
+        df_print: paged
+        keep_md: true
+        toc: true
+        toc_depth: 2
+---
+
+
+Using a Pandoc Lua filter (*)
+
+
+---
+title: "Color text with a Lua filter"
+output: 
+  html_document: 
+    pandoc_args: ["--lua-filter=color-text.lua"]
+  pdf_document: 
+    pandoc_args: ["--lua-filter=color-text.lua"]
+    keep_tex: true
+---
+
+First, we define a Lua filter and write it to
+the file `color-text.lua`.
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- tranform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+
+output:
+  html_document:
+    template: my-template.html
+
+
+

@@ -1,0 +1,52 @@
+---
+title: "Presentation Ninja"
+subtitle: "with xaringan"
+author: "Yihui Xie"
+date: "2016/12/12"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+# Two dashes
+
+The easiest way to build incremental slides is...
+--
+ to use two dashes `--` to separate content on a slide.
+
+--
+
+You can divide a slide in _any way you want_.
+
+--
+
+- One bullet
+
+- Another bullet
+
+--
+
+- And one more
+
+--
+
+.center[
+![Saw](https://slides.yihui.name/gif/saw-branch.gif)
+
+Don't saw your slides too hard.
+]
+
+---
+
+The holy passion of Friendship is of so sweet and steady
+and loyal and enduring a nature that it will last through
+a whole lifetime...
+
+???
+
+_if not asked to lend money_.
+
+--- Mark Twain

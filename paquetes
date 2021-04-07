@@ -1,0 +1,233 @@
+Creating R packages
+
+Packages provide a mechanism 
+for loading optional code,
+data and documentation as needed.
+
+
+The R distribution itself includes 
+about 30 packages. 
+
+A package is a directory of files 
+which extend R,a source package 
+(the master files of a package)
+
+or a tarball containing the 
+files of a source package
+
+A package is not a library.
+
+The latter is used in two senses
+in R documentation. 
+
+A directory into which packages 
+are installed, in that sense it is 
+sometimes referred to 
+as a library directory or 
+library tree 
+(since the library is a directory which contains packages as directories, which themselves contain directories). 
+
+There are a number of well-defined
+operations on source packages. 
+
+The most common is installation
+
+Source packages can be built.
+This involves taking a source 
+directory and creating a tarball 
+ready for distribution
+including cleaning it up and 
+creating PDF documentation from 
+any vignettes it may contain
+
+
+Compilation is not a correct term for a package.
+Installing a source package which contains C, C++ or Fortran code will involve compiling that code.
+
+It used to be unambiguous to talk about loading an installed package using library()
+but since the advent of package namespaces this has been less clear: people now often talk about loading the package’s namespace and then attaching the package so it becomes visible on the search path
+Function library performs both steps, but a package’s namespace can be loaded without the package being attached (for example by calls like splines::ns). 
+
+
+Package structure
+
+The sources of an R package 
+consists of a subdirectory 
+containing a files 
+DESCRIPTION and NAMESPACE,
+
+and the subdirectories R, data, demo, exec, inst, man, po, src, tests, tools and vignettes 
+(some of which can be missing, but which should not be empty)
+
+The package subdirectory may also contain files INDEX, configure, cleanup, LICENSE, LICENCE and NEWS
+
+Other files such as INSTALL (for non-standard installation instructions), README/README.md2, or ChangeLog will be ignored by R, but may be useful to end users.
+
+The optional files configure and cleanup are (Bourne) shell scripts which are, respectively, executed before and (if option --clean was given) after installation on Unix-alikes, see Configure and cleanup. The analogues on Windows are configure.win and cleanup.win. 
+
+The package subdirectory should be given the same name as the package.
+
+it is strongly recommended that case distinctions not be used to distinguish different packages.
+
+For example, if you have a package named foo, do not also create a package named Foo. 
+
+To ensure that file names are valid across file systems and supported operating systems,
+
+the ASCII control characters as well as the characters ‘"’, ‘*’, ‘:’, ‘/’, ‘<’, ‘>’, ‘?’, ‘\’, and ‘|’ are not allowed in file names.
+in addition, files with names ‘con’, ‘prn’, ‘aux’, ‘clock$’, ‘nul’, ‘com1’ to ‘com9’, and ‘lpt1’ to ‘lpt9’ after conversion to lower case and stripping possible “extensions” (e.g., ‘lpt5.foo.bar’), are disallowed. 
+
+Also, file names in the same directory must not differ only by case (see the previous paragraph).
+
+In addition, the basenames of ‘.Rd’ files may be used in URLs and so must be ASCII and not contain %.
+
+For maximal portability filenames should only contain only ASCII characters not excluded already (that is A-Za-z0-9._!#$%&+,;=@^(){}'[] — we exclude space as many utilities do not accept spaces in file paths)
+
+: non-English alphabetic characters cannot be guaranteed to be supported in all locales.
+
+It would be good practice to avoid the shell metacharacters (){}'[]$~: ~ is also used as part of ‘8.3’ filenames on Windows.
+
+The DESCRIPTION file contains basic information about the package 
+The format is that of a version of a ‘Debian Control File’
+help for ‘read.dcf’ and https://www.debian.org/doc/debian-policy/index.html#document-ch-controlfields
+R does not require encoding in UTF-8 and does not support comments starting with ‘#’
+Fields start with an ASCII name immediately followed by a colon
+he value starts after the colon and a space. 
+Continuation lines (for example, for descriptions longer than one line) start with a space or tab.
+
+
+For maximal portability, the DESCRIPTION file should be written entirely in ASCII
+if this is not possible it must contain an ‘Encoding’ field (see below).
+
+Several optional fields take logical values: these can be specified as ‘yes’, ‘true’, ‘no’ or ‘false’: capitalized values are also accepted.
+
+The ‘Package’, ‘Version’, ‘License’, ‘Description’, ‘Title’, ‘Author’, and ‘Maintainer’ fields are mandatory
+ all other fields are optional.
+
+Fields ‘Author’ and ‘Maintainer’ can be auto-generated from ‘Authors@R’
+however if they are not ASCII we recommend that they are provided.
+
+The mandatory ‘Package’ field gives the name of the package.
+his should contain only (ASCII) letters, numbers and dot,
+have at least two characters
+and start with a letter and not end in a dot.
+If it needs explaining, this should be done in the ‘Description’ field (and not the ‘Title’ field).
+
+The mandatory ‘Version’ field gives the version of the package. 
+This is a sequence of at least two (and usually three) non-negative integers separated by single ‘.’ or ‘-’ characters.
+
+The canonical form is as shown in the example, 0.5-1
+and a version such as ‘0.01’ or ‘0.01.0’ will be handled as if it were ‘0.1-0’
+It is not a decimal number, so for example 0.9 < 0.75 since 9 < 75.
+
+The mandatory ‘Title’ field should give a short description of the package. 
+Some package listings may truncate the title to 65 characters.
+It should use title case (that is, use capitals for the principal words: tools::toTitleCase can help you with this),
+not use any markup, not have any continuation lines, and not end in a period (unless part of …). 
+Do not repeat the package name: it is often used prefixed by the name. 
+Refer to other packages and external software in single quotes,
+nd to book titles (and similar) in double quotes.
+
+The mandatory ‘Description’ field should give a comprehensive description of what the package does. 
+One can use several (complete) sentences, but only one paragraph.
+It should be intelligible to all the intended readership (e.g. for a CRAN package to all CRAN users).
+It is good practice not to start with the package name, ‘This package’ or similar.
+As with the ‘Title’ field, double quotes should be used for quotations (including titles of books and articles),
+and single quotes for non-English usage, including names of other packages and external software. 
+URLs should be enclosed in angle brackets, e.g. ‘<https://www.r-project.org>’:
+
+
+The mandatory ‘Author’ field describes who wrote the package. 
+It is a plain text field intended for human readers, 
+but not for automatic processing (such as extracting the email addresses of all listed contributors: for that use ‘Authors@R’). 
+Note that all significant contributors must be included:
+If you wrote an R wrapper for the work of others included in 
+The src directory, you are not the sole (and maybe not even the main) author.
+
+The mandatory ‘Maintainer’ field should give a single name followed by a valid (RFC 2822) email address in angle brackets
+e. g. Maintainer: Joe Developer <Joe.Developer@some.domain.net>
+This field is what is reported by the maintainer function and used by bug.report.
+For a CRAN package it should be a person, not a mailing list and not a corporate entity: do ensure that it is valid and will remain valid for the lifetime of the package.
+
+Note that the display name (the part before the address in angle brackets) should be enclosed in double quotes if it contains non-alphanumeric characters such as comma or period. (The current standard, RFC 5322, allows periods but RFC 2822 did not.)
+
+Both ‘Author’ and ‘Maintainer’ fields can be omitted if a suitable ‘Authors@R’ field is given. 
+This field can be used to provide a refined and machine-readable description of the package “authors” (in particular specifying their precise roles), via suitable R code. 
+It should create an object of class "person", by either a call to person or a series of calls (one per “author”) concatenated by c(): see the example DESCRIPTION file above.
+The roles can include ‘"aut"’ (author) for full authors, ‘"cre"’ (creator) for the package maintainer, and ‘"ctb"’ (contributor) for other contributors, ‘"cph"’ (copyright holder), among others.
+See ?person for more information. 
+
+An optional ‘Copyright’ field can be used where the copyright holder(s) are not the authors. 
+If necessary, this can refer to an installed file: the convention is to use file inst/COPYRIGHTS.
+
+The optional ‘Date’ field gives the release date of the current version of the package. It is strongly recommended6 to use the ‘yyyy-mm-dd’ format conforming to the ISO 8601 standard.
+
+The ‘Depends’, ‘Imports’, ‘Suggests’, ‘Enhances’, ‘LinkingTo’ and ‘Additional_repositories’ fields are discussed in a later subsection.
+
+Dependencies external to the R system should be listed in the ‘SystemRequirements’ field, possibly amplified in a separate README file.
+
+The ‘URL’ field may give a list of URLs separated by commas or whitespace, 
+for example the homepage of the author or a page where additional material describing the software can be found.
+
+
+The ‘BugReports’ field may contain a single URL to which bug reports about the package should be submitted. 
+This URL will be used by bug.report instead of sending an email to the maintainer. A browser is opened for a ‘http://’ or ‘https://’ URL. 
+As from R 3.4.0, bug.report will try to extract an email address (preferably from a ‘mailto:’ URL or enclosed in angle brackets).
+
+Base and recommended packages 
+(i.e., packages contained in the R source distribution or available from CRAN and recommended to be included 
+in every binary distribution of R) 
+have a ‘Priority’ field with value ‘base’ or ‘recommended’, respectively. 
+These priorities must not be used by other packages.
+
+A ‘Collate’ field can be used for controlling the collation order for the R code files 
+in a package when these are processed for package installation.
+The default is to collate according to the ‘C’ locale.
+If present, the collate specification must list all R code files in the package
+(taking possible OS-specific subdirectories into account, see Package subdirectories) 
+as a whitespace separated list of file paths relative to the R subdirectory. 
+
+The ‘LazyData’ logical field controls whether the R datasets use lazy-loading.
+
+The ‘KeepSource’ logical field controls if the package code is sourced using keep.source = TRUE or FALSE:
+it might be needed exceptionally for a package designed to always be used with keep.source = TRUE.
+
+If the DESCRIPTION file is not entirely in ASCII it should contain an ‘Encoding’ field specifying an encoding.
+ 
+The ‘NeedsCompilation’ field should be set to "yes" if the package contains code which to be compiled, otherwise "no"
+
+The ‘Type’ field specifies the type of the package: see Package types.
+
+A ‘Language’ field can be used to indicate if the package documentation is not in English: 
+this should be a comma-separated list of standard (not private use or grandfathered) IETF language 
+tags as currently defined by RFC 5646
+
+Licensing for a package which might be distributed is an important but potentially complex subject.
+It is very important that you include license information! Otherwise, it may not even be legally correct for others to distribute copies of the package, let alone use it
+
+The package management tools use the concept of ‘free or open source software’ (FOSS, e.g., https://en.wikipedia.org/wiki/FOSS) licenses: the idea being that some users of R and its packages want to restrict themselves to such software. 
+
+Others need to ensure that there are no restrictions stopping them using a package, e.g. forbidding commercial or military use. It is a central tenet of FOSS software that there are no restrictions on users nor usage.
+
+Do not use the ‘License’ field for information on copyright holders: if needed, use a ‘Copyright’ field.
+
+The mandatory ‘License’ field in the DESCRIPTION file should specify the license of the package in a standardized form. Alternatives are indicated via vertical bars. Individual specifications must be one of
+
+One of the “standard” short specifications
+
+GPL-2 GPL-3 LGPL-2 LGPL-2.1 LGPL-3 AGPL-3 Artistic-2.0
+BSD_2_clause BSD_3_clause MIT
+
+as made available via https://www.R-project.org/Licenses/ and contained in subdirectory share/licenses of the R source or home directory.
+
+
+
+R objects are documented in files written in “R documentation” (Rd) format
+a simple markup language much of which closely resembles (La)TeX
+which can be processed into a variety of formats, including LaTeX, HTML and plain text. 
+
+An Rd file consists of three parts
+The header gives basic information about the name of the file, the topics documented, a title, a short textual description and R usage information for the objects documented. 
+
+The body gives further information (for example, on the function’s arguments and return value, as in the above example). 
+Finally, there is an optional footer with keyword information. The header is mandatory.
+

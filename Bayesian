@@ -1,0 +1,191 @@
+Bayesian
+
+we use mcmc when is dificult to simulate independent drows
+when the acceptance ratio(good is between 0.23 and 0.51) is to low you should decrease the deviation
+
+defoult for JAGS
+
+#1. Specify the model
+library(rjags)
+
+we specify the hieraquical structure of the model to varible tha generaly call "mod_string"
+
+mod_string = "model {
+	for (i in 1:n){
+	y[i] ~ dnorm(mu, 1.0/sig2) # in JAGS we use the precition wich is the reciprocal of the variace
+	}
+	mu ~ dt(0, 1.0/1.0, 1)
+	sig2 = 1.0 
+}"
+
+#2. Set up the model
+set.seed(50)
+
+what the data are and what parameters are
+##data
+y <- c(1.2, 1.4, -0.5, 0.3, 0.9, 2.3, 1.0, 0.1, 1.3, 1.9)
+n <- length(n)
+
+##and provide intial values whit the same name for the model specification
+data_jags <- list(y = y, n = n)
+
+##and params for the model
+params <- c("mu")
+
+##to git JAGS initial values we write a function like below
+
+inits <- function() {
+	inits = list("mu" = 0) #ramdon initial value
+}
+
+##finaly we compile the model itself
+
+mod <- jags.model(textConnection(mod_string), data = data_jags, inits = inits) #initialize the model
+
+#3. Run the MCMC sampler
+
+update(mod, 500) #runs MCMC sampler for 500 iterations without saving
+
+mod_sim <- coda.samples(model = mod, variable.names = c("mu"), n.iter = 1000) #runs the model and keep our simulations
+
+before fit the model is necesary to check de parameters of the model
+q es igual a 1 porque solo hay dos modelos fair or load
+
+
+#4. Post processing
+library(coda)
+plot(mod_sim)
+summary(mod_sim)
+-----------------------------------------------------
+
+https://d18ky98rnyall9.cloudfront.net/_adadc80290e52a99b282ca9d7c1a41ee_background_MarkovChains.html?Expires=1592265600&Signature=GOwT05BPPrc06y6NRKWZPIC5O8bKpte36WRd288IrrOsbdvnRo-aVLhJwqA-kAiI5Kmhn-wh7ZbVCcATOmVYIH0nrTLd8whaOSM8-kPsWdk8Ts8LT7Y3ZNHZPOmSED8Rua6HqlZPQICWhr9jsqECegN3OdWTLrkBPMlDeOwqDLk_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A
+##Markov Chainr
+
+how to know if the chain converge to a stationary distribution?
+is dicult to answer
+
+Auticorrelation is a number between -1, 1
+dependent of how lineary dependent the current value of the chain is to past values
+we can see the autocorrelation wit autocorr.plot() function in coda package
+and we can see the values with autocorr.diag() 
+
+autocorr.diag(mod, lag.max = 500) 
+Auticorrelation is important becouse tell us how much information is availible on markov chain
+
+with effectiveSize() function in coda pakage we can know the effective sample size
+
+the number we need to produce a confident interval can calculate we the Raftery and Luis diagnostic
+raftery.diag(mod)
+
+https://d18ky98rnyall9.cloudfront.net/_dd6d312e631a80339ba1627e1d72b42d_Autocorrelation.pdf?Expires=1592265600&Signature=I62AW6uTjXioFVB5woCfp7bVEsEr9RNK2oS6tgrHX33c1aPCMlQNX-gNEnzmpXrD3FcFbxb3dhmiMXUywzOdSimCF4fEjx3ldmLOsBjd27iIE6DEOSx6GjiLmu~RWkr8qPMY1siPD-EyN1c7R-tKo4DGzVrOlb3NbBX~FndQNyI_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A
+
+gelman and ruben diagnostic tell us if the chains converge
+calculate the variability within chains and compares that with variability between de chains
+with gelman.diag() function if the variability between de chain is similar to the variability within echa chain the C.I is near to 1 and the diferent chain converge
+
+gelman.plot() tell us how change the vaule of statistic with the number of iterations
+
+set.seed(1337)
+y <- rnorm(n = 20, mean = 10, sd = 5)
+mean(y)
+sd(y)
+library(rjags)
+
+# The model specification modelo con jags
+model_string <- "model{
+  for(i in 1:length(y)) {
+    y[i] ~ dnorm(mu, tau)
+  }
+  mu ~ dnorm(0, 0.0001)
+  sigma ~ dlnorm(0, 0.0625)
+  tau <- 1 / pow(sigma, 2)
+}"
+
+# Running the model
+model <- jags.model(textConnection(model_string), data = list(y = y), n.chains = 3, n.adapt= 10000)
+update(model, 10000); # Burnin for 10000 samples
+mcmc_samples <- coda.samples(model, variable.names=c("mu", "sigma"), n.iter=20000)
+
+plot(mcmc_samples)#shows the trace plots and marginal densities of the two parameters…
+
+summary(mcmc_samples)#we get credible intervals and point estimates for the parameters.
+
+
+library(rstan)
+
+# The model specification
+model_string <- "
+data {
+  int<lower=0> N;
+  realint<lower=0> y[N];
+}
+
+parameters {
+  realint<lower=0> mu;
+  real<lower=0> sigma;
+}
+model{
+  y ~ normal(mu, sigma);
+  mu ~ normal(0, 100);
+  sigma ~ lognormal(0, 4);
+}"
+
+modelo1 <-"data {
+  int<lower=0> N ;
+  int<lower=0> y[N] ;
+}
+parameters {
+  real<lower=0,upper=1> pi;
+  real<lower=0.0001> alpha;
+  real<lower=0.0001> beta;
+}
+model {
+  alpha ~ uniform(0.0001,10)
+  beta ~ gamma(0.0001,10);
+  pi ~ beta(alpha,beta) ;
+  y ~ binomial(5,pi) ;
+}"
+
+# Running the model
+mcmc_samples <- stan(model_code=model_string, data=list(N=length(y), y=y), pars=c("mu", "sigma"), chains=3, iter=30000, warmup=10000)
+
+
+traceplot(mcmc_samples)
+plot(mcmc_samples)#the parameter distributions.
+mcmc_samples
+
+#http://www.sumsar.net/blog/2013/06/three-ways-to-run-bayesian-models-in-r/
+#https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started
+#http://www.johnmyleswhite.com/notebook/2010/08/20/using-jags-in-r-with-the-rjags-package/
+#http://jeromyanglim.blogspot.com.co/2012/04/getting-started-with-jags-rjags-and.html
+#https://stats.stackexchange.com/questions/185254/multi-level-bayesian-hierarchical-regression-using-rjags
+#http://www.johnmyleswhite.com/notebook/2010/08/20/using-jags-in-r-with-the-rjags-package/
+#http://biometry.github.io/APES//LectureNotes/StatsCafe/Linear_models_jags.html
+
+
+Beta/binomial model using JAGS
+
+n      <- 20
+Y      <- 4
+a      <- 3
+b      <- 1
+
+library(rjags)
+model_string <- "model{
+
+# Likelihood
+Y ~ dbinom(theta,n)
+
+# Prior
+theta ~ dbeta(a, b)
+}"
+model <- jags.model(textConnection(model_string), 
+                    data = list(Y=Y,n=n,a=a,b=b))
+update(model, 10000, progress.bar="none"); # Burnin for 10000 samples
+
+samp <- coda.samples(model, 
+                     variable.names=c("theta"), 
+                     n.iter=20000, progress.bar="none")
+
+summary(samp)
+plot(samp)

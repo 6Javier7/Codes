@@ -1,0 +1,84 @@
+Function in r
+
+Developing functions is a key aspect of programming in R and typically involves a bottom-up process.
+
+1. Code is written to accomplish a specific task or a specific instance of a task.
+2. The code is examined to identify key aspects that may be modified by other users; these aspects are abstracted out of the code and made arguments of a function.
+3. Functions are written to accomplish more general versions of a task; specific instances of the task are indicated by setting values of function arguments.
+4. Function code can be re-factored to provide better modularity and to divide functions into specific sub-tasks.
+5. Functions can be assembled and organized into R packages.
+
+
+Deciding when to write a function depends on the context in which you are programming in R. 
+in our experience, there are relatively few one-off scenarios. In particular, such a scenario implies that whatever you did worked on the very first try.
+In reality, we often have to repeat certain tasks or we have to share code with others.
+Sometimes those "other people" are simply ourselves 3 months later
+As the great Karl Broman once famously said
+Your closest collaborator is you six months ago, but you don't reply to emails.
+
+If you're going to do something once (that does happen on occasion), just write some code and document it very well.
+If you're going to do something twice, write a function. This allows you to abstract a small piece of code, and it forces you to define an interface, so you have well defined inputs and outputs.
+
+If you're going to do something three times or more, you should think about writing a small package. It doesn't have to be commercial level software, but a small package which encapsulates the set of operations that you're going to be doing in a given analysis. It's also important to write some real documentation so that people can understand what's supposed to be going on, and can apply the software to a different situation if they have to.
+
+
+ Functions are used to encapsulate a sequence of expressions that are executed together to achieve a specific goal. 
+ A single function typically does "one thing well"---often taking some input and the generating output that can potentially be handed off to another function for further processing. 
+ When writing a function, it's important to ask yourself what do I want to encapsulate?
+
+
+There is going to be a user who will desire the ability to modify certain aspects of your code to match their specific needs
+Aspects of your code that can be modified often become function arguments that can be specified by the user
+When writing any function it's important to ask what will the user want to modify in this function? 
+
+
+As a function author, you have tremendous influence over the user's behavior by specifying defaults, so take care in choosing them.
+
+Now that we have a function written that handles the task at hand in a more general manner
+ it is worth taking a closer look at the function and asking whether it is written in the most useful possible manner.
+ In particular, it could be argued that this function does too many things:
+
+Sometimes it is useful to check to see that the needed packages are installed so that a useful error message (or other behavior) can be provided for the user.
+ check_pkg_deps <- function() {
+        if(!require(readr)) {
+                message("installing the 'readr' package")
+                install.packages("readr")
+        }
+        if(!require(dplyr))
+                stop("the 'dplyr' package needs to be installed first")
+}
+This distinction in behaviors for readr and dplyr is a bit arbitrary in this case, but it illustrates the flexibility that is afforded by usingrequire() versus library().
+
+Argument Checking
+
+num_download <- function(pkgname, date = "2016-07-20") {
+        check_pkg_deps()
+
+        ## Check arguments
+        if(!is.character(pkgname))
+                stop("'pkgname' should be character")
+        if(!is.character(date))
+                stop("'date' should be character")
+        if(length(date) != 1)
+                stop("'date' should be length 1")
+
+        dest <- check_for_logfile(date)
+        cran <- read_csv(dest, col_types = "ccicccccci", 
+                         progress = FALSE)
+        cran %>% filter(package %in% pkgname) %>% 
+                group_by(package) %>%
+                summarize(n = n())
+}
+Note that here, we chose to stop() and throw an error if the argument was not of the appropriate type. However, an alternative would have been to simply coerce the argument to be of character type using the as.character() function.
+
+
+Subsetting lists
+There are a few ways to subset a list. Throughout the course we'll mostly use double bracket ([[]]) subsetting by index and by name.
+
+That is, my_list[[1]] extracts the first element of the list my_list, and my_list[["name"]] extracts the element in my_list that is called name. If the list is nested you can travel down the hierarchy by recursive subsetting. For example, mylist[[1]][["name"]] is the element called name inside the first element of my_list.
+
+A data frame is just a special kind of list, so you can use double bracket subsetting on data frames too. my_df[[1]] will extract the first column of a data frame and my_df[["name"]] will extract the column named name from the data frame.
+
+I've set up a list called tricky_list in your workspace. Use the function typeof() combined with double bracket subsetting to answer the following questions.
+
+typeof(tricky_list[[2]])

@@ -1,0 +1,217 @@
+Bulding Packages
+
+https://bookdown.org/rdpeng/RProgDA/
+
+There are two main types of documentation you may want to include with packages:
+
+1 Longer documents that give tutorials or overviews for the whole package
+2 Shorter, function specific help files for each function or group of related functions
+
+You can create the first type of document using package vignettes, README files, or both.
+For the function-specific help files, the easiest way to create these is with the roxygen2 package.
+
+README documentation can be done using knitr to create R Markdown documents that mix R code and text, so we’ll include more details on that process.
+
+You will likely want to create a document that walks users through the basics of how to use your package. You can do this through two formats:
+
+Vignette: This document is bundled with your R package, so it becomes locally available to a user once they install your package from CRAN. They will also have it available if they install the package from GitHub, as long as they use the build_vignettes = TRUE when running install_github.
+
+README file: If you have your package on GitHub, this document will show up on the main page of the repository.
+
+A package likely only needs a README file if you are posting the package to GitHub. 
+For any GitHub repository, if there is a README.md file in the top directory of the repository, it will be rendered on the main GitHub repository page below the listed repository content.
+
+If the README file does not need to include R code, you can write it directly as an .md file
+If you want to include R code, you should start with a README.Rmd file, which you can then render to Markdown using knitr. 
+
+You can use the devtools package to add either a README.md or README.Rmd file to a package directory, using use_readme_md or use_readme_rmd, respectively.
+
+The README file is a useful way to give GitHub users information about your package, but it will not be included in builds of the package or be available through CRAN for package
+
+instead, if you want to create tutorials or overview documents that are included in a package build, you should do that by adding one or more package vignettes. Vignettes are stored in a vignettes subdirectory within the package directory.
+
+To add a vignette file, saved within this subdirectory (which will be created if you do not already have it), use the use_vignette function from devtools. This function takes as arguments the file name of the vignette you’d like to create and the package for which you’d like to create it (the default is the package in the current working directory). 
+
+You can have more than one vignette per package, which can be useful if you want to include one vignette that gives a more general overview of the package as well as a few vignettes that go into greater detail about particular aspects or applications.
+
+R Markdown files are mostly written using Markdown. To write R Markdown files, you need to understand what markup languages like Markdown are and how they work. 
+
+In Word and other word processing programs you have used, you can add formatting using buttons and keyboard shortcuts (e.g., “Ctrl-B” for bold). 
+
+The file saves the words you type. It also saves the formatting, but you see the final output, rather than the formatting markup, when you edit the file (WYSIWYG – what you see is what you get). 
+
+When creating R Markdown documents using the RStudio toolbar, much of this YAML will be automatically generated based on your specifications when opening the initial file. However, this is not the case with package vignettes, for which you’ll need to go into the YAML and add the authors and title yourself. Leave the vignette engine, vignette encoding, output, and date as their default values.
+
+The magrittr (to be pronounced with a sophisticated french accent) is a package with two aims: to decrease development time and to improve readability and maintainability of code. Or even shortr: to make your code smokin' (puff puff)!
+
+magrittr
+
+To archive its humble aims, magrittr (remember the accent) provides a new “pipe”-like operator, %>%, with which you may pipe a value forward into an expression or function call; something along the lines of x %>% f, rather than f(x).
+
+The “tee” operator, %T>% works like %>%, except it returns the left-hand side value, and not the result of the right-hand side operation. This is useful when a step in a pipeline is used for its side-effect (printing, plotting, logging, etc.). As an example (where the actual plot is omitted here):
+
+rnorm(200) %>%
+matrix(ncol = 2) %T>%
+plot %>% # plot usually does not return anything. 
+colSums
+
+The “exposition” pipe operator, %$% exposes the names within the left-hand side object to the right-hand side expression. Essentially, it is a short-hand for using the with functions (and the same left-hand side objects are accepted). This operator is handy when functions do not themselves have a data argument, as for example lm and aggregate do. Here are a few examples as illustration:
+
+iris %>%
+  subset(Sepal.Length > mean(Sepal.Length)) %$%
+  cor(Sepal.Length, Sepal.Width)
+
+data.frame(z = rnorm(100)) %$% 
+  ts.plot(z)
+
+Finally, the compound assignment pipe operator %<>% can be used as the first pipe in a chain. The effect will be that the result of the pipeline is assigned to the left-hand side object, rather than returning the result as usual. It is essentially shorthand notation for expressions like foo <- foo %>% bar %>% baz, which boils down to foo %<>% bar %>% baz. Another example is
+
+iris$Sepal.Length %<>% sqrt
+
+The %<>% can be used whenever expr <- ... makes sense, e.g.
+
+x %<>% foo %>% bar
+x[1:10] %<>% foo %>% bar
+x$baz %<>% foo %>% bar
+
+Aliases
+In addition to the %>%-operator, magrittr provides some aliases for other operators which make operations such as addition or multiplication fit well into the magrittr-syntax. As an example, consider:
+
+rnorm(1000)    %>%
+multiply_by(5) %>%
+add(5)         %>%
+{ 
+   cat("Mean:", mean(.), 
+       "Variance:", var(.), "\n")
+   head(.)
+}
+
+
+argument %>% function()
+
+f(x, y) can be rewritten as x %>% f(y)
+
+argument1 %>% function(argument2)
+x %>% f %>% g %>% h can be rewritten as h(g(f(x)))
+
+https://www.datacamp.com/community/tutorials/pipe-r-tutorial
+
+# Without piping
+function(dataframe, argument_2, argument_3)
+
+# With piping
+dataframe %>%
+  function(argument_2, argument_3)
+
+
+ext_tracks %>%
+  summarize(n_obs = n(),
+            worst_wind = max(max_wind),
+            worst_pressure = min(min_pressure))# Puedo poner varias cosas en summarize
+
+
+ext_tracks %>%
+  group_by(storm_name, year) %>%
+  summarize(n_obs = n(),
+            worst_wind = max(max_wind),
+            worst_pressure = min(min_pressure))
+
+
+ext_tracks %>%
+  group_by(storm_name) %>%
+  summarize(worst_wind = max(max_wind)) %>%
+  ggplot(aes(x = worst_wind)) + geom_histogram() 
+
+
+When cleaning up data, you will need to be able to create subsets of the data, by selecting certain columns or filtering down to certain rows.
+
+The primary of these is summarize, which inputs a data frame and creates a new data frame with the requested summaries. In conjunction with summarize, you can use other functions from dplyr (e.g., n, which counts the number of observations in a given column) to create this summary. You can also use R functions from other packages or base R functions to create the summary.
+
+You can also use summarize with functions you’ve written yourself, which gives you a lot of power in summarizing data in interesting ways. As a simple example, if you wanted to present the maximum wind speed in the summary above using miles per hour rather than knots, you could write a function to perform the conversion, and then use that function within the summarize call:
+
+knots_to_mph <- function(knots){
+  mph <- 1.152 * knots
+}
+
+ext_tracks %>%
+  summarize(n_obs = n(),
+            worst_wind = knots_to_mph(max(max_wind)),
+            worst_pressure = min(min_pressure))
+
+ The group_by function does not make a visible change to a data frame, although you can see, if you print out a grouped data frame, that the new grouping variable will be listed under “Groups” at the top of a print-out:
+
+Even though applying the group_by function does not cause a noticeable change to the data frame itself, you’ll notice the difference in grouped and ungrouped data frames when you use summarize on the data frame. If a data frame is grouped, all summaries are calculated and given separately for each unique value of the grouping variable:
+
+This grouping / summarizing combination can be very useful for quickly plotting interesting summaries of a dataset.
+
+Other functions that can be used with select in a similar way include:
+
+ends_with: Select all columns that end with a certain string (for example, select(ext_tracks, ends_with("ne")) to get all the wind radii for the northeast quadrant of a storm for the hurricane example data)
+
+contains: Select all columns that include a certain string (select(ext_tracks, contains("34")) to get all wind radii for 34-knot winds)
+
+matches: Select all columns that match a certain relative expression (select(ext_tracks, matches("_[0-9][0-9]_")) to get all columns where the 
+column name includes two numbers between two underscores, a pattern that matches all of the wind radii columns)
+
+%in%	Included in	storm_name %in% c("KATRINA", "ANDREW")
+
+==	Equals	                    storm_name == KATRINA
+!=	Does not equal	            min_pressure != 0
+>	Greater than	            latitude > 25
+>=	Greater than or equal to	max_wind >= 160
+<	Less than	                min_pressure < 900
+<=	Less than or equal to	    distance_to_land <= 0
+%in%	Included in	            storm_name %in% c("KATRINA", "ANDREW")
+is.na()	Is a missing value	    is.na(radius_34_ne)
+
+If you are ever unsure of how to write a logical statement, but know how to write its opposite, you can use the ! operator to negate the whole statement. For example, if you wanted to get all storms except those named “KATRINA” and “ANDREW”, you could use !(storm_name %in% c("KATRINA", "ANDREW")).
+
+ filter(storm_name == "ANDREW" & max_wind >= 137) 
+
+ worldcup <- worldcup %>%
+  mutate(player_name = rownames(worldcup))
+
+You can also use mutate in coordination with group_by to create new columns that give summaries within certain windows of the data. For example, the following code will add a column with the average number of shots for a player’s position added as a new column. While this code is summarizing the original data to generate the values in this column, mutate will add these repeated summary values to the original dataset by group, rather than returning a dataframe with a single row for each of the grouping variables (try replacing mutate with summarize in this code to make sure you understand the difference).
+
+worldcup <- worldcup %>% 
+  group_by(Position) %>%
+  mutate(ave_shots = mean(Shots)) %>%
+  ungroup()
+
+worldcup %>% slice(1:3)
+
+After changing the age categories from row names to a variable (which can be done with the mutate function), the key problem with the tidyness of the data is that the variables of urban / rural and male / female are not in their own columns, but rather are embedded in the structure of the columns. To fix this, you can use the gather function to gather values spread across several columns into a single column, with the column names gathered into a “key” column. When gathering, exclude any columns that you don’t want “gathered” (age in this case) by including the column names with a the minus sign in the gather function. For example:
+
+# Gather everything but age to tidy data
+VADeaths %>%
+  gather(key = key, value = death_rate, -age)
+
+Dates and Times
+
+Date are rempresented by Date classes
+TIMES the are represented by POSIXct y POSIXlt
+Dates are stored internally as the number of days since 1970-01-01 "Jueves"
+Times are stored internally as the number of seconds since 1970-01-01
+  x <- as.Date("1970-01-01")
+unclass(as.Date("1970-01-01")) "how is stored the day"
+POSIXct Time are represented just as verry large integers
+POSIXlt Time are stored as a list with another sort of information like year, month, etc
+weekdays() "tell us the dday of the week"
+months()
+quaters() "give the quater number"("Q1", "Q2", "Q3", "Q4") 
+Q1 = January through March
+Q2 = April through June
+x <- Sys.time() "save as POSIXct"
+z <- as,Date("1995-07-28")
+unclass(x) "the number of seconds since 1970-01-01"
+p <- as.POSIXlt(x)
+names(unclass(p))
+p$sec
+p$yday
+scriptime "convierte el string en fechas"
+string <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
+y <- scriptime(string, "%B %d, %Y %H:%M")
+
+se pueden sumar, restar las fechas
+comparar ==, <=
+pero hay que tener cuidado con mezclar clases

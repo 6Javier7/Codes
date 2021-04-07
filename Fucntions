@@ -1,0 +1,9 @@
+Fucntions
+
+f <- function(x) {
+  if (TRUE) {
+    return(x + 1)
+  }
+  x
+}
+f(2) = 3

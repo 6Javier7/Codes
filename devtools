@@ -1,0 +1,97 @@
+Writing a package can seem overwhelming at first.
+So start with the basics and improve it over time.
+It doesn’t matter if your first version isn’t perfect as long as the next version is better.
+
+The goal of devtools is to make package development as painless as possible.
+
+R packages by Hadley Wickham
+
+In R, the fundamental unit of shareable code is the package. 
+
+Packages are the fundamental 
+units of reproducible R code. 
+
+They include reusable R functions,
+The documentation that describes how to use them,
+and sample data.
+
+In this section you’ll learn how to turn your code into packages that others can easily download and use. 
+
+A package bundles together code, data, documentation, and tests, and is easy to share with others.
+As of January 2015, there were over 6,000 packages available on 
+the Comprehensive R Archive Network, or CRAN,
+the public clearing house for R packages.
+
+Why write a package?
+One compelling reason is that you have code that you want to share with others. 
+Bundling your code into a package makes it easy for other people to use it,
+because like you, they already know how to use packages
+
+But packages are useful even if you never share your code. As Hilary Parker says in her introduction to packages: 
+“Seriously, it doesn’t have to be about sharing your code (although that is an added benefit!). It is about saving yourself time.”
+Organising code in a package makes your life easier because packages come with conventions.
+
+This book espouses my philosophy of package development: 
+anything that can be automated, should be automated.
+Do as little as possible by hand.
+Do as much as possible with functions.
+
+The goal is to spend your time thinking about what you want your package to do rather than thinking about the minutiae of package structure.
+
+This philosophy is realised primarily through the devtools package, a suite of R functions that I wrote to automate common development tasks.
+
+The goal of devtools is to make package development as painless as possible.
+
+Naming your package
+
+“There are only two hard things in Computer Science: cache invalidation and naming things.”
+
+— Phil Karlton
+
+If you’re planning on releasing your package, I think it’s worth spending a few minutes to come up with a good name. 
+Here are some recommendations for how to go about it:
+
+Pick a unique name you can easily Google. 
+You can also check if a name is already used on CRAN by loading http://cran.r-project.org/web/packages/[PACKAGE_NAME].
+
+Avoid using both upper and lower case letters
+doing so makes the package name hard to type and even harder to remember. For example, I can never remember if it’s Rgtk2 or RGTK2 or RGtk2.
+
+Find a word that evokes the problem and modify it so that it’s unique:
+plyr is generalisation of the apply family, and evokes pliers.
+testdat tests that data has the correct format.
+
+Use abbreviations:
+Rcpp = R + C++ (plus plus)
+lvplot = letter value plots.
+
+Add an extra R:
+stringr provides string tools.
+
+So far, we’ve just worked with a source package: the development version of a package that lives on your computer.
+source package is just a directory with components like R/, DESCRIPTION, and so on.
+
+A bundled package is a package that’s been compressed into a single file.
+By convention (from Linux), package bundles in R use the extension .tar.gz.
+
+his means that multiple files have been reduced to a single file (.tar) and then compressed using gzip (.gz).
+
+While a bundle is not that useful on its own, it’s a useful intermediary between the other states. In the rare case that you do need a bundle, call devtools::build() to make it.
+
+If you want to distribute your package to an R user who doesn’t have package development tools, you’ll need to make a binary package. Like a package bundle, a binary package is a single file. But if you uncompress it, you’ll see that the internal structure is rather different from a source package
+
+An installed package is just a binary package that’s been decompressed into a package library (described below).
+
+The tool that powers all package installation is the command line tool R CMD INSTALL
+- it can install a source, bundle or a binary package.
+
+devtools::install_github() downloads a source package from GitHub, runs build() to make vignettes, and then uses R CMD INSTALL to do the install.
+install.packages() is used to download and install binary packages built by CRAN. install_github() works a little differently - it downloads a source package, builds it and then installs it.
+
+To use a package, you must load it into memory.
+R loads packages automatically when you use them. library() (and the later discussed require()) load, then attach an installed package.
+
+library() is not useful when you’re developing a package because you have to install the package first.
+
+A library is simply a directory containing installed packages.
+In fact, almost every one has at least two: one for packages you’ve installed, and one for the packages that come with every R installation (like base, stats, etc). 

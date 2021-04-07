@@ -1,0 +1,1700 @@
+Indentar
+bye() "guarda el progreso"
+Esc "sales de la aplicacion"
+emporarily,
+leave the lesson by typing play() and then return by typing nxt().
+Most programming environments will provide a list
+of variables that you've created that begin with 'my_'.
+function_name
+It's always a good idea to learn more about Unix!
+mytest.R ARrchivos	
+Take nothing but results. Leave nothing but assumptions. That sounds like
+'Take nothing but pictures. Leave nothing but footprints.' But it makes no
+sense! Surely our readers can come up with a better motto 
+
+https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols #markdpwn and LateX
+
+Operacionales
+
+c()    "concatena"
+seq()  "secuencia"
+seq(along.with = my_seq)
+seq.along() "hace una secuencia de los numeros de la secuencia"
+rep()  "replica"
+sqrt() "raiz c"
+expo() "exponencial"
+log()  "logaritmo"
+abs()  "valor adsoluto"
+cos()  "coseno"
+sin()  "seno"
+tan()  "tangente"
+atan() "arcotangente"
+acosh() "coseno hiperbolico"
+min()  "minimo"
+max()  "maximo"
+which.min() o which.max() "busca el minimo o el maximo de un vector"
+sum()  "suma"
+prod() "producto"
+cumsum(), cumpro() "suma acumulada o producto acumulado"
+factorial() "funsion factorial"
+t()  "matriz transpuesta"
+fivenum() "te muestra todos los percentiles"
+gl(s,cantidad) "repite una sequencia de numero una determinada cantidad de veces"
+es la funcion generadora de niveles de factores
+interaction() "para combinar los niveles de factores"
+str() "muestra un resumen de la estructura interna de un objeto" ideal para resumir resultados anidados
+set.seed(1) "hace los claculos con el mismo sed de numero aleatorios"
+sample() "saca muestras"
+cuando solo pones una secuencia entonses te imprime una permutacion de la secuencia elegida
+%% is the modulo operator
+%*% "multiplicacion de matrices"
+solve() "inversa de una matriz"
+z[-1] # exclude element 1
+y[c(1,3)] # extract elements 1 and 3 of y 
+x[x > 3] <- 0
+subset() "Filtering muestra un filtro" subset(x,x > 5) 
+which()  "Filtering" which(z*z > 8)
+Gender,Length,Diameter,Height,WholeWt,ShuckedWt,ViscWt,ShellWt,Rings
+identical(x,y) "analisa si son iguales"
+ names(x) <- c("a","b","ab")  
+is.na() "muestra un vector con todos lo na"
+!is.na() "muestra lo valores del vector"
+x[-c(2, 10)]
+dim(my_vector) <- c(4, 5) le da dimensiones al vector
+attributes(my_vector)
+colnames() <-
+
+
+
+
+Ayuda
+
+%in% "Included in" ej: storm_name %in% c("KATRINA", "ANDREW")
+
+If you are trying to check if one thing is equal to one of several things, use %in% rather than ==. For example, 
+if you want to filter to rows of ext_trackswith storm names of “KATRINA” and “ANDREW”, 
+you need to use storm_name %in% c(“KATRINA”, “ANDREW”), not storm_name == c(“KATRINA”, “ANDREW”).
+
+help.start()
+?
+args()  "argumentos"
+ls()   "lista de todos los objetos en el ambiente"
+length() "longitud"
+?`:` 
+`!=` "desiguialdad"
+`!`  "negacion"
+`|`  "conjuncion o"
+`&`  "disyucion y"
+`&&` "version of AND only evaluates the first member of a vector."
+isTRUE() "takes one argument. If that argument evaluates to TRUE"
+The xor() "function stands for exclusive OR"
+Sys.Date() "returns a string representing today's date"
+rm() "borra objetos"
+ls() "lista de objetos"
+paste() "une los caracteres de un vector en solo un caracter"
+si pones un vector que se pegue con un strin te sale otro vector con todas las posibles combinaciones 
+paste0() "te combina los string sin dejar espacios"
+nchar() "cuenta el numero de caracteres de un string"
+toupper("string") "todas las lestras del strin so vuelven mayusculas"
+tolower("String") "todas las lestras del sting se vuleven minusculas" 
+round() "redondea al numero mas cercano"
+floor() "redondea al numero menor"
+ceilling() "redondea al numero mayor"
+duplicated() "muestra si hsy datos repetidos"
+unique()  "te muestra los datos que no estan repetidos"
+sort()  "organisa los elementos de manera ascendente"
+names(x) "le da nombres a los elementos del vector"
+any(x<z) "evalua si algun elemento cumple una caracteristica"
+all(x<z) "si todos los elementos cumplen cierta propiedad"
+str()  "muestra la caracterisiticas matriciales"
+trunc() "truncamineto liminta los nuteros decimales a cieta cantidad significativa"
+signif() "numeros significativos"
+objects() "muestara los nombres de los objetos"
+control+l "limpia la consola"
+search() "busca paquetes"
+invisible() "impide el autoprint"
+warning "aparece cuando ocurre algo inesperado"
+error   "para la funsion"
+traceback() "te dice cuantas funsiones se han llamado y donde ocurre el error"
+debug(function) "para la funcion en primera linea"
+browser() "detiene la funsion en donde se que se encuentre en el coadigo"
+trace() "permite depurar el codigo sin necesidad de editar la funsion"
+buena para editar paquetes
+recover() "te permite modificar el error "
+system.time() "muestra cuanto se demora el programa en evaluar la expresion" 
+user time es el tiempo que persive el ordenador CPU, y el elased yime es el tiempo que uno persive
+Rprof() "calcula cuanto tiempo se toma el algoritmo en cada funcion" si la funcion se demora menos de 0.02 seg esta funcion es obsoleta
+la funsion que comienza el R profiler [optimizacion del codigo] esta funcion no es legible
+para utilizarla hay que usar summaryRprof()
+by.total() "divide el tiempo que se gasta en cada funcion por el tiempo total"
+by.self() "los mismo pero le resta al total el tiempo que se gasta en la function de arriva"
+enviroment() "muestra los objetos"
+get("n",enviroment()) ""muestra un objeto especifico 
+if, else "condicionales"
+break "rompe la ejecucion de un loop"
+repeat "ejecuta un loop infinito"
+while "ejecuta un loop mentras la condicion se cumple"
+next ""
+return "sle de la funsion"
+nml
+optimize
+optim
+(expression)  The parentheses notation returns the result of evaluating the expression inside the parentheses
+{expression_1; expression_2; ... expression_n} Curly braces are used to evaluate a series of expressions (separated by new lines or semicolons) and return only the last expression
+
+
+it's important to note that R provides a common API (a common set of
+commands) for interacting with files, that way your code will work across
+different kinds of computers
+
+Direccion
+
+con los direstorios hay que usar ''
+
+getwd() "te muestra el directorio" 
+setwd() "te mueve de directorio"
+list.files() "lista de archivos en el directorio"
+dir()   "lista de archivos"
+dir.create() "crea un directorio"
+file.create() "crea un archivo"
+file.exists() "prueba si hay una archivo con un nombre especifico"
+file.info() "informacion sobre el archivo" 
+file.rename() "cambiar el nombre al archivo"
+file.remove() "elimina un archivo"
+file.copy() "crea una copia de un archivo"
+file.path() "crea la ruta de archivo" ej: datafile <- file.path(datapath, "urban.csv.gz") "para tener
+unlink() "elimana el directorio si pone recursive = TRUE"
+source() "utiliza los scrips"
+object.size(plants) "tell you  how much space the dataset is occupying in memory"
+
+Funsiones Loops
+
+lapply(list,fun,...) "aplica una funsion a todos los elementos de una lista" 
+sapply(vector, fun) "una variante de lapply que simplfica resultados mostrando un vector o una matriz con todos los resultados" simplify apply
+apply(array,margin(c(1("para fililas") ,2("para columnas")),fun,...)  "aplica la funcion a los margenes una matriz o un arreglo"
+rowSums() "sumatoria de cada una de las filas del arreglo"
+rowMeans() "media de cada una de las filas" 
+colSums() "sumatoria de columna"
+colMeans() "medias de columna"
+tapply() "aplica la funcion a un subconjunto de vectores" 
+mapply() "la version multivariable varias listas de lapply"
+split() "no es una loop function pero se parece a tapply sin el detalle de aplicar alguna funsion"
+ 
+workspace = global emviroment
+search(☺) consiste en la lista de todos los paquetes en el enviroment
+el orden en que se encuentran los paquetes en la lista es el orden en el que
+se buscan los objetos por paquetes los que nos muestra que el orden es importante
+cuando se usa el comando library() lo que ocurre es que el paquete que se llama
+se coloca en la segunda posicion en la lista
+
+las scooping rules son lo que hacen a R en esencia diferentes del lenguaje s
+esta determianan como una varible se determinan como un valor se asocia con una varible libre en una funsion
+las variable fre son las varibles que no son argumentos de la funsion
+
+las lexical scooping es una alternativa de la dinamic scooping
+
+lexical scooping vusca los valores a las variables free en el enviroment en donde la funsion se definio
+en el dinamic scooping los valores se buscan en el enviroment en que la funsion se llamo o the parent frame
+a veces estodos dos enviroment son los mismos
+
+definir una funcion es darle valores
+
+todos los lenguajes convergen a lisp
+
+una de las consecuensias es que todos los objetos se deben guardar en la memoria
+
+la maxima veroximi1litu de la de ficsher es la proporcion p
+de una exponencial(lanmda) es uno sobre la media
+de una distribucion uniforme es el valor mas alto
+
+r ramdon
+d density
+q quantil
+p cumulative
+
+if (condition) true_expression else false_expression 
+if (condition) expression 
+
+if ( <condition> ) {
+   do something
+   } else { do something
+   }
+    if ( <condition> ) {
+    do something
+    } if else { do something different
+    } else { do something
+}
+
+for (i in 1:100) {
+  print(i)
+}
+
+for (letter in x) { print(letter) }
+for (i in seq_x) { print (x[i]) }
+
+se puede meter un for dentro de otro for
+for (var in list) expression
+
+for ( i in seq_len(nrow(x)) ){
+for ( j in seq_len(necol(x)){
+print([i, j])
+ } 
+}
+
+while (condition) expression
+while (i <= 25) {print(i); i <- i + 5} 
+
+count <- 0
+while ([count < 10] condition) {
+ print([count] something)
+ something <- [count + 1] operation
+}
+
+z <- 5
+
+while (z >= 3 && z <= 10) {
+  print(z)
+  coin <- rbinom(1,1,.5)
+  if (coin == 1) {
+  z <- z +1
+  } else {
+  z <- z - 1
+  }
+}
+de izquierda a derecha
+
+for (i in 1:100) {
+     if (i <= 20) {
+     something
+     }
+     next
+  other thing
+  }
+}
+
+for (i in seq_along(volumes)){
+   mass <- 2.65 * volumes[i] ^ 0.9
+   print(mass)
+}
+
+b0 <- c(2.65, 1.28, 3.29)
+b1 <- c(0.9, 1.1, 1.2)
+for (i in seq_along(volumes)){
+   mass <- b0[i] * volumes[i] ^ b1[i]
+   print(mass)
+}
+
+b0 <- c(2.65, 1.28, 3.29)
+b1 <- c(0.9, 1.1, 1.2)
+masses <- vector(mode="numeric", length=length(volumes))
+for (i in seq_along(volumes)){
+   mass <- b0[i] * volumes[i] ^ b1[i]
+   masses[i] <- mass
+}
+
+
+
+download.file("http://www.datacarpentry.org/semester-biology/data/collar-data-2016-01.zip", 
+              "collar_data.zip")
+unzip("collar_data.zip")
+collar_data_files = list.files(pattern = "collar-data-.*.txt", 
+                               full.names = TRUE)
+
+ get_counts <- function(data_file_name){
+    file <- read.csv(data_file_name)
+    count <- nrow(file)
+    return(count)
+  }
+	
+  results <- vector(length = length(collar_data_files))
+  for (i in seq_along(collar_data_files){
+    results[i] <- get_numbers(collar_data_files[i])
+  }
+
+
+
+make.power <- function(n) {
+           pow <- function(x) {
+                  x^n
+           } 
+                  pow
+}
+
+cube <- make.power(3)
+
+
+y <- 10
+f <- function(x) {
+      y <- 2
+      y^2 + g(x)
+}
+
+g <- function(x) {
+      x*y
+}  
+
+ repeat {if (i > 25) break else {print(i); i <- i + 5;}}
+
+en la distribucion poison-gamma
+poisson
+theta media y desviasion
+gamma
+
+media es k vesces theta
+desviasion es theta veces la raiscuadrada de k
+
+conjugAda
+k es igual a k mas la sumatoria de los valores observados
+theta es theta sobre n por theta mas uno
+
+el margen de error son dos veces  el error estandar
+si tenemos menos del 10% de la poblacion la muestra se considera independiente
+
+R uses 'one-based indexing', which (you guessed it!) means the first element of a vector is considered
+| element 1.
+
+Next, we introduce a new function, `inference`, that we will use for conducting
+hypothesis tests and constructing confidence intervals. 
+
+Then, run the following:
+
+```{r inf-weight-habit-ht, tidy=FALSE}
+inference(y = weight, x = habit, data = nc, statistic = "mean", type = "ht", null = 0, 
+          alternative = "twosided", method = "theoretical")
+```
+
+Let's pause for a moment to go through the arguments of this custom function. 
+The first argument is `y`, which is the response variable that we are 
+interested in: `weight`. The second argument is the explanatory variable, 
+`x`, which is the variable that splits the data into two groups, smokers and 
+non-smokers: `habit`. The third argument, `data`, is the data frame these
+variables are stored in. Next is `statistic`, which is the sample statistic
+we're using, or similarly, the population parameter we're estimating. In future labs
+we can also work with "median" and "proportion". Next we decide on the `type` of inference 
+we want: a hypothesis test (`"ht"`) or a confidence interval (`"ci"`). When performing a 
+hypothesis test, we also need to supply the `null` value, which in this case is `0`, 
+since the null hypothesis sets the two population means equal to each other. 
+The `alternative` hypothesis can be `"less"`, `"greater"`, or `"twosided"`. 
+Lastly, the `method` of inference can be `"theoretical"` or `"simulation"` based.
+
+
+Graficos
+
+Base
+help(par) "IMPORTANTE te dice los paramentros"
+
+par(bg = "grey47", col.axis = "white", col.lab = "white", col.main = "white", fg = "white")
+
+las: orientation of axis labels on the plot
+bg; background color
+mar: margin size
+oma: the outer margin size
+mfrow/mfcol: number of plots per row
+
+‘col’ A specification for the default plotting color.  See section
+          ‘Color Specification’.
+
+          Some functions such as ‘lines’ and ‘text’ accept a vector of
+          values which are recycled and may be interpreted slightly
+          differently.
+
+‘col.axis’ The color to be used for axis annotation.  Defaults to
+‘"black"’.
+
+‘col.lab’ The color to be used for x and y labels.  Defaults to
+‘"black"’.
+
+‘col.main’ The color to be used for plot main titles.  Defaults to
+‘"black"’.
+
+‘fg’ The color to be used for the foreground of plots.  This is
+          the default color used for things like axes and boxes around
+          plots.  When called from ‘par()’ this also sets parameter
+          ‘col’ to the same value.  See section ‘Color Specification’.
+          A few devices have an argument to set the initial value,
+          which is otherwise ‘"black"’.
+
+Color Specification:
+
+     Colors can be specified in several different ways. The simplest
+     way is with a character string giving the color name (e.g.,
+     ‘"red"’).  A list of the possible colors can be obtained with the
+     function ‘colors’.  Alternatively, colors can be specified
+     directly in terms of their RGB components with a string of the
+     form ‘"#RRGGBB"’ where each of the pairs ‘RR’, ‘GG’, ‘BB’ consist
+     of two hexadecimal digits giving a value in the range ‘00’ to
+     ‘FF’.  Colors can also be specified by giving an index into a
+     small table of colors, the ‘palette’: indices wrap round so with
+     the default palette of size 8, ‘10’ is the same as ‘2’.  This
+     provides compatibility with S.  Index ‘0’ corresponds to the
+     background color.  Note that the palette (apart from ‘0’ which is
+     per-device) is a per-session setting.
+
+     Negative integer colours are errors.
+
+     Additionally, ‘"transparent"’ is _transparent_, useful for filled
+     areas (such as the background!), and just invisible for things
+     like lines or text.  In most circumstances (integer) ‘NA’ is
+     equivalent to ‘"transparent"’ (but not for ‘text’ and ‘mtext’).
+
+     Semi-transparent colors are available for use on devices that
+     support them.
+
+     The functions ‘rgb’, ‘hsv’, ‘hcl’, ‘gray’ and ‘rainbow’ provide
+     additional ways of generating colors.
+
+
+plot(x, y, type = "n")
+model <- lm(y ~ x)
+abline(a=NULL, b=NULL, h=NULL, v=NULL, ...)
+abline(model, lwd = 2)
+par (mfrow =c(1,3), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
+with(data, {
+  plot(x)
+  plot(y)
+  plot(z)
+  mtex("Upper", outer = T)
+})
+
+png("name.png", height = 480, width = 480)
+svg("name.svg", height = 480, width = 480)
+dev.oof()
+dev.cur() "currentent device"
+div.set(<<integer>>) "change the device the integer number of the device"
+dev.copy() "copy a plot from one device to another"
+dev.copy2pdf() "copy the plot in a PDF file"
+
+Colors
+
+
+the colorRamp and colorRampPalette function take a set of color and make a palette
+and them interpolate to make new colors
+colorRamp() "take a palette of color and return a function that takes values between 0 and 1, indicated the extreme colors"
+grey() "like colorRamp but only between black and white"
+eg
+pal <- colorRamp(c("red", "blue"))
+pal(0) "solo valores entre 0 y 1"
+pal(.5)
+pal(seq(0, 1, len = 10))
+pal(seq(0, 1, by = 0.01))
+
+
+colors() "the names of the colors"
+heat.colors(n) "n colors from red - yellow - white"
+topo.colors(n) "n colors from blue - green - yellow"
+colorRampPalette(c("name1", "name2")) "return a vector of colors interpolating you can see the names of colors with colors()"
+e.g
+pal <- colorRampPalette(c("red", "yellow"))
+pal(2)
+
+3 types of palettes interesting in R
+in RColorBrewer package
+
+Sequential "data that cam bew order from low yo higt"
+Diverging "you want to show the deviation from something"
+Qualitative "data taht can not be order like factors"
+
+e. g
+
+library(RColorBrewer)
+cols <- brewer.pal(n, "name")
+cols <- brewer.pal(3, "BuGn")
+pal <- colorRampPalette(c(cols))
+image(volcano, col = pal(20))
+
+ggplot colors
+
+The default color selection uses scale_fill_hue() and scale_colour_hue(). For example, adding those commands is redundant in these cases:
+
+Although scale_fill_hue() and scale_colour_hue() were redundant above, they can be used when you want to make changes from the default, like changing the luminance or chromaticity.
+
+e.g
+
+# Reduce saturation (chromaticity) from 100 to 50, and increase luminance
+scale_fill_hue(c = 45, l = 80)
+
+# Note: use scale_colour_hue() for lines and points
+
+You can also use other color scales, such as ones taken from the RColorBrewer package. See the chart of RColorBrewer palettes below. See the scale section here for more information.
+
+scale_fill_brewer(palette = "Set1")
+
+Finally, you can define your own set of colors with scale_fill_manual(). See the hexadecimal code chart below for help choosing specific colors.
+
+scale_fill_manual(values = c("red", "blue", "green")
+
+for continuos data you can use  scale_colour_gradientn()
+e.g
+scale_colour_gradientn(colours = rainbow(4))
+
+
+color in lattice
+
+Many aspects of a lattice graphic are determined by the current theme. To get a visual overview of yours, submit this:
+
+show.settings()
+my.theme = trellis.par.get()
+names(my.theme)
+
+
+To get the gory details of your current theme, use the 
+trellis.par.get()
+str(trellis.par.get(), max.level = 1)
+
+xyplot(fastest~GPA,data=m111survey,
+       groups = sex,
+       auto.key = TRUE,
+       par.settings = list(superpose.symbol = list(col = c("blue","red"),
+                                                   pch = 19),
+                           superpose.line = list(col = c("blue","red"),
+                                                 lwd = 2)),
+       xlab="grade point average",
+       ylab="speed (mph)",
+       main="Fastest Speed Ever Driven,\nby Grade Point Average",
+       type=c("p","smooth"))
+
+Consider, for example, the list component superpose.symbol. Let's inspect it.
+
+str(trellis.par.get("superpose.symbol"))
+
+xyplot(lifeExp ~ gdpPercap | continent, jDat,
+       group = country, subset = year == 2007,
+       scales = list(x = list(log = 10, equispaced.log = FALSE)),
+       par.settings = list(superpose.symbol = list(pch = 19, cex = 1.5,
+                                                   col = c("orange", "blue"))))
+
+with(int, xyplot(steps ~ interval, ylab = "Average of Steps per Day", xlab = "Interval", type = "smooth", par.settings = list(plot.line = list(col = "grey", alpha = 1, lty = 2))))
+
+Lattice
+
+> trellis.par.get()
+$grid.pars
+list()
+
+$fontsize
+$fontsize$text
+[1] 12
+
+$fontsize$points
+[1] 8
+
+
+$background
+$background$alpha
+[1] 1
+
+$background$col
+[1] "transparent"
+
+
+$panel.background
+$panel.background$col
+[1] "transparent"
+
+
+$clip
+$clip$panel
+[1] "on"
+
+$clip$strip
+[1] "on"
+
+
+$add.line
+$add.line$alpha
+[1] 1
+
+$add.line$col
+[1] "#000000"
+
+$add.line$lty
+[1] 1
+
+$add.line$lwd
+[1] 1
+
+
+$add.text
+$add.text$alpha
+[1] 1
+
+$add.text$cex
+[1] 1
+
+$add.text$col
+[1] "#000000"
+
+$add.text$font
+[1] 1
+
+$add.text$lineheight
+[1] 1.2
+
+
+$plot.polygon
+$plot.polygon$alpha
+[1] 1
+
+$plot.polygon$col
+[1] "#00ffff"
+
+$plot.polygon$border
+[1] "black"
+
+$plot.polygon$lty
+[1] 1
+
+$plot.polygon$lwd
+[1] 1
+
+
+$box.dot
+$box.dot$alpha
+[1] 1
+
+$box.dot$col
+[1] "#000000"
+
+$box.dot$cex
+[1] 1
+
+$box.dot$font
+[1] 1
+
+$box.dot$pch
+[1] 16
+
+
+$box.rectangle
+$box.rectangle$alpha
+[1] 1
+
+$box.rectangle$col
+[1] "#0080ff"
+
+$box.rectangle$fill
+[1] "transparent"
+
+$box.rectangle$lty
+[1] 1
+
+$box.rectangle$lwd
+[1] 1
+
+
+$box.umbrella
+$box.umbrella$alpha
+[1] 1
+
+$box.umbrella$col
+[1] "#0080ff"
+
+$box.umbrella$lty
+[1] 2
+
+$box.umbrella$lwd
+[1] 1
+
+
+$dot.line
+$dot.line$alpha
+[1] 1
+
+$dot.line$col
+[1] "#e6e6e6"
+
+$dot.line$lty
+[1] 1
+
+$dot.line$lwd
+[1] 1
+
+
+$dot.symbol
+$dot.symbol$alpha
+[1] 1
+
+$dot.symbol$cex
+[1] 0.8
+
+$dot.symbol$col
+[1] "#0080ff"
+
+$dot.symbol$font
+[1] 1
+
+$dot.symbol$pch
+[1] 16
+
+
+$plot.line
+$plot.line$alpha
+[1] 1
+
+$plot.line$col
+[1] "#0080ff"
+
+$plot.line$lty
+[1] 1
+
+$plot.line$lwd
+[1] 1
+
+
+$plot.symbol
+$plot.symbol$alpha
+[1] 1
+
+$plot.symbol$cex
+[1] 0.8
+
+$plot.symbol$col
+[1] "#0080ff"
+
+$plot.symbol$font
+[1] 1
+
+$plot.symbol$pch
+[1] 1
+
+$plot.symbol$fill
+[1] "transparent"
+
+
+$reference.line
+$reference.line$alpha
+[1] 1
+
+$reference.line$col
+[1] "#e6e6e6"
+
+$reference.line$lty
+[1] 1
+
+$reference.line$lwd
+[1] 1
+
+
+$strip.background
+$strip.background$alpha
+[1] 1
+
+$strip.background$col
+[1] "#ffe5cc" "#ccffcc" "#ccffff" "#cce6ff" "#ffccff" "#ffcccc" "#ffffcc"
+
+
+$strip.shingle
+$strip.shingle$alpha
+[1] 1
+
+$strip.shingle$col
+[1] "#ff7f00" "#00ff00" "#00ffff" "#0080ff" "#ff00ff" "#ff0000" "#ffff00"
+
+
+$strip.border
+$strip.border$alpha
+[1] 1
+
+$strip.border$col
+[1] "#000000" "#000000" "#000000" "#000000" "#000000" "#000000" "#000000"
+
+$strip.border$lty
+[1] 1 1 1 1 1 1 1
+
+$strip.border$lwd
+[1] 1 1 1 1 1 1 1
+
+
+$superpose.line
+$superpose.line$alpha
+[1] 1
+
+$superpose.line$col
+[1] "#0080ff"   "#ff00ff"   "darkgreen" "#ff0000"   "orange"    "#00ff00"  
+[7] "brown"    
+
+$superpose.line$lty
+[1] 1 1 1 1 1 1 1
+
+$superpose.line$lwd
+[1] 1 1 1 1 1 1 1
+
+
+$superpose.symbol
+$superpose.symbol$alpha
+[1] 1 1 1 1 1 1 1
+
+$superpose.symbol$cex
+[1] 0.8 0.8 0.8 0.8 0.8 0.8 0.8
+
+$superpose.symbol$col
+[1] "#0080ff"   "#ff00ff"   "darkgreen" "#ff0000"   "orange"    "#00ff00"  
+[7] "brown"    
+
+$superpose.symbol$fill
+[1] "#CCFFFF" "#FFCCFF" "#CCFFCC" "#FFE5CC" "#CCE6FF" "#FFFFCC" "#FFCCCC"
+
+$superpose.symbol$font
+[1] 1 1 1 1 1 1 1
+
+$superpose.symbol$pch
+[1] 1 1 1 1 1 1 1
+
+
+$superpose.polygon
+$superpose.polygon$alpha
+[1] 1 1 1 1 1 1 1
+
+$superpose.polygon$col
+[1] "#CCFFFF" "#FFCCFF" "#CCFFCC" "#FFE5CC" "#CCE6FF" "#FFFFCC" "#FFCCCC"
+
+$superpose.polygon$border
+[1] "black" "black" "black" "black" "black" "black" "black"
+
+$superpose.polygon$lty
+[1] 1 1 1 1 1 1 1
+
+$superpose.polygon$lwd
+[1] 1 1 1 1 1 1 1
+
+
+$regions
+$regions$alpha
+[1] 1
+
+$regions$col
+  [1] "#FF80FFFF" "#FF82FFFF" "#FF85FFFF" "#FF87FFFF" "#FF8AFFFF" "#FF8CFFFF"
+  [7] "#FF8FFFFF" "#FF91FFFF" "#FF94FFFF" "#FF96FFFF" "#FF99FFFF" "#FF9CFFFF"
+ [13] "#FF9EFFFF" "#FFA1FFFF" "#FFA3FFFF" "#FFA6FFFF" "#FFA8FFFF" "#FFABFFFF"
+ [19] "#FFADFFFF" "#FFB0FFFF" "#FFB3FFFF" "#FFB5FFFF" "#FFB8FFFF" "#FFBAFFFF"
+ [25] "#FFBDFFFF" "#FFBFFFFF" "#FFC2FFFF" "#FFC4FFFF" "#FFC7FFFF" "#FFC9FFFF"
+ [31] "#FFCCFFFF" "#FFCFFFFF" "#FFD1FFFF" "#FFD4FFFF" "#FFD6FFFF" "#FFD9FFFF"
+ [37] "#FFDBFFFF" "#FFDEFFFF" "#FFE0FFFF" "#FFE3FFFF" "#FFE6FFFF" "#FFE8FFFF"
+ [43] "#FFEBFFFF" "#FFEDFFFF" "#FFF0FFFF" "#FFF2FFFF" "#FFF5FFFF" "#FFF7FFFF"
+ [49] "#FFFAFFFF" "#FFFCFFFF" "#FCFFFFFF" "#FAFFFFFF" "#F7FFFFFF" "#F5FFFFFF"
+ [55] "#F2FFFFFF" "#F0FFFFFF" "#EDFFFFFF" "#EBFFFFFF" "#E8FFFFFF" "#E6FFFFFF"
+ [61] "#E3FFFFFF" "#E0FFFFFF" "#DEFFFFFF" "#DBFFFFFF" "#D9FFFFFF" "#D6FFFFFF"
+ [67] "#D4FFFFFF" "#D1FFFFFF" "#CFFFFFFF" "#CCFFFFFF" "#C9FFFFFF" "#C7FFFFFF"
+ [73] "#C4FFFFFF" "#C2FFFFFF" "#BFFFFFFF" "#BDFFFFFF" "#BAFFFFFF" "#B8FFFFFF"
+ [79] "#B5FFFFFF" "#B3FFFFFF" "#B0FFFFFF" "#ADFFFFFF" "#ABFFFFFF" "#A8FFFFFF"
+ [85] "#A6FFFFFF" "#A3FFFFFF" "#A1FFFFFF" "#9EFFFFFF" "#9CFFFFFF" "#99FFFFFF"
+ [91] "#96FFFFFF" "#94FFFFFF" "#91FFFFFF" "#8FFFFFFF" "#8CFFFFFF" "#8AFFFFFF"
+ [97] "#87FFFFFF" "#85FFFFFF" "#82FFFFFF" "#80FFFFFF"
+
+
+$shade.colors
+$shade.colors$alpha
+[1] 1
+
+$shade.colors$palette
+function (irr, ref, height, saturation = 0.9) 
+{
+    hsv(h = height, s = 1 - saturation * (1 - (1 - ref)^0.5), 
+        v = irr)
+}
+<bytecode: 0x564c8689bba0>
+<environment: 0x564c868b8ed0>
+
+
+$axis.line
+$axis.line$alpha
+[1] 1
+
+$axis.line$col
+[1] "#000000"
+
+$axis.line$lty
+[1] 1
+
+$axis.line$lwd
+[1] 1
+
+
+$axis.text
+$axis.text$alpha
+[1] 1
+
+$axis.text$cex
+[1] 0.8
+
+$axis.text$col
+[1] "#000000"
+
+$axis.text$font
+[1] 1
+
+$axis.text$lineheight
+[1] 1
+
+
+$axis.components
+$axis.components$left
+$axis.components$left$tck
+[1] 1
+
+$axis.components$left$pad1
+[1] 1
+
+$axis.components$left$pad2
+[1] 1
+
+
+$axis.components$top
+$axis.components$top$tck
+[1] 1
+
+$axis.components$top$pad1
+[1] 1
+
+$axis.components$top$pad2
+[1] 1
+
+
+$axis.components$right
+$axis.components$right$tck
+[1] 1
+
+$axis.components$right$pad1
+[1] 1
+
+$axis.components$right$pad2
+[1] 1
+
+
+$axis.components$bottom
+$axis.components$bottom$tck
+[1] 1
+
+$axis.components$bottom$pad1
+[1] 1
+
+$axis.components$bottom$pad2
+[1] 1
+
+
+
+$layout.heights
+$layout.heights$top.padding
+[1] 1
+
+$layout.heights$main
+[1] 1
+
+$layout.heights$main.key.padding
+[1] 1
+
+$layout.heights$key.top
+[1] 1
+
+$layout.heights$xlab.top
+[1] 1
+
+$layout.heights$key.axis.padding
+[1] 1
+
+$layout.heights$axis.top
+[1] 1
+
+$layout.heights$strip
+[1] 1
+
+$layout.heights$panel
+[1] 1
+
+$layout.heights$axis.panel
+[1] 1
+
+$layout.heights$between
+[1] 1
+
+$layout.heights$axis.bottom
+[1] 1
+
+$layout.heights$axis.xlab.padding
+[1] 1
+
+$layout.heights$xlab
+[1] 1
+
+$layout.heights$xlab.key.padding
+[1] 0
+
+$layout.heights$key.bottom
+[1] 1
+
+$layout.heights$key.sub.padding
+[1] 1
+
+$layout.heights$sub
+[1] 1
+
+$layout.heights$bottom.padding
+[1] 1
+
+
+$layout.widths
+$layout.widths$left.padding
+[1] 1
+
+$layout.widths$key.left
+[1] 1
+
+$layout.widths$key.ylab.padding
+[1] 0
+
+$layout.widths$ylab
+[1] 1
+
+$layout.widths$ylab.axis.padding
+[1] 1
+
+$layout.widths$axis.left
+[1] 1
+
+$layout.widths$axis.panel
+[1] 1
+
+$layout.widths$strip.left
+[1] 1
+
+$layout.widths$panel
+[1] 1
+
+$layout.widths$between
+[1] 1
+
+$layout.widths$axis.right
+[1] 1
+
+$layout.widths$axis.key.padding
+[1] 1
+
+$layout.widths$ylab.right
+[1] 1
+
+$layout.widths$key.right
+[1] 1
+
+$layout.widths$right.padding
+[1] 1
+
+
+$box.3d
+$box.3d$alpha
+[1] 1
+
+$box.3d$col
+[1] "#000000"
+
+$box.3d$lty
+[1] 1
+
+$box.3d$lwd
+[1] 1
+
+
+$par.xlab.text
+$par.xlab.text$alpha
+[1] 1
+
+$par.xlab.text$cex
+[1] 1
+
+$par.xlab.text$col
+[1] "#000000"
+
+$par.xlab.text$font
+[1] 1
+
+$par.xlab.text$lineheight
+[1] 1
+
+
+$par.ylab.text
+$par.ylab.text$alpha
+[1] 1
+
+$par.ylab.text$cex
+[1] 1
+
+$par.ylab.text$col
+[1] "#000000"
+
+$par.ylab.text$font
+[1] 1
+
+$par.ylab.text$lineheight
+[1] 1
+
+
+$par.zlab.text
+$par.zlab.text$alpha
+[1] 1
+
+$par.zlab.text$cex
+[1] 1
+
+$par.zlab.text$col
+[1] "#000000"
+
+$par.zlab.text$font
+[1] 1
+
+$par.zlab.text$lineheight
+[1] 1
+
+
+$par.main.text
+$par.main.text$alpha
+[1] 1
+
+$par.main.text$cex
+[1] 1.2
+
+$par.main.text$col
+[1] "#000000"
+
+$par.main.text$font
+[1] 2
+
+$par.main.text$lineheight
+[1] 1
+
+
+$par.sub.text
+$par.sub.text$alpha
+[1] 1
+
+$par.sub.text$cex
+[1] 1
+
+$par.sub.text$col
+[1] "#000000"
+
+$par.sub.text$font
+[1] 2
+
+$par.sub.text$lineheight
+[1] 1
+
+
+
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram()
+
+
+This function says to plot the `dep_delay` variable from the `nycflights` data 
+frame on the x-axis. It also defines a `geom` (short for geometric object), 
+which describes the type of plot you will produce. 
+
+Histograms are generally a very good way to see the shape of a single 
+distribution, but that shape can change depending on how the data is split 
+between the different bins. You can easily define the binwidth you want to use:
+
+```{r hist-dep-delay-bins}
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram(binwidth = 15)
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram(binwidth = 150)
+
+Bayes
+
+samples = as.data.frame(weight_post$samples)
+nsim = nrow(samples)
+samples = mutate(samples, y_pred = rnorm(nsim, mu, sqrt(sig2)))
+
+ggplot(data = samples, aes(x = y_pred)) + 
+  geom_histogram(aes(y = ..density..), bins = 100) +
+  geom_density() + 
+  xlab(expression(y[new]))
+
+ggplot(data = samples, aes(x = y_pred)) + 
+  geom_histogram(aes(y = ..density..), bins = 100) +
+  geom_density() + 
+  xlab(expression(y[new]))
+
+dplyr::select(samples, mu, y_pred) %>%
+  map(quantile, probs=c(0.025, 0.50, 0.975))
+```
+In the above code we are using `dplyr:select` to select just the columns `mu` and `y_pred` from `samples`.  The usage of `dplyr:` preceeding `select`, ensures that we are using the `select` function from the `dplyr` package to avoid possible name conflicts, as several packages have a `select` function.  We are also taking advantage of the pipe operator to send the selected columns to the `map` function to apply the `quantile` function to each of the selected columns for the probabilities in the argument `probs` to `quantile`.
+
+Lattice
+
+xyplot(y ~ x| f, panel = function(x, y, ...){
+  panel.xyploy(x, y, ...) ## First call default panel function for "xyplot"
+  panel.abline(h = median(y), lty = 2) ##ad horizontal line at the median
+})
+
+xyplot(y ~ x| f, panel = function(x, y, ...){
+  panel.xyploy(x, y, ...) ## First call default panel function
+  panel.lmline(h = median(y), col = 2) ##Overlay a simple linear regression line
+})
+
+Expression function
+hace que los graficos queden una chimba
+
+expression("Total" ~ PM[2.5] ~ "Emissions by Year") "graficos con subindices gracias a []"
+plot(x,y, ylab = expression("Total" ~ PM[2.5] ~ "Emissions by Year"))
+ggtitle(expression("Total" ~ PM[2.5] ~ "Emissions by Year"))
+
+
+John Chambers, the creator of R
+ once said:
+ 
+ To understand computations in R, two slogans are helpful: 1. Everything that
+ exists is an object. 2. Everything that happens is a function call.
+
+strict rule in R programming: all
+# arguments after an ellipses must have default values.
+
+
+Getting and Cleaning Data
+
+download.file(url, desfile = "./name.csv")
+dir.create("name")
+
+RDS
+readRDS() 
+glimpse() "como str"
+
+XML
+doc <- xmlTreeParse(fileUrl, useIternal = TRUE)
+Remove the s from https
+document <- xmlTreeParse(sub("s", "", url))
+root <- xmlRoot(document)
+xmlSApply(root, xmlValue)
+root1 <- htmlTreeParse(fileUrl, useIternal = TRUE)
+xpathSApply(root, "/[@class = 'zipcode']", xmlValue)
+
+clave
+/node "principal node"
+//node "any oyher node"
+/node[@attr-name] "some attribute"
+/node[@attr-name = 'something']
+
+root[[1]][1]
+root[[1]]
+root[[1]][[1]]
+
+
+Json
+library(jsolite)
+JSONdata <- fromJSON("url")
+name(JSONdata) "similar to XML tags or nodes"
+name(JSONdata$node) "names to more inclusive scale"
+myjson <- toJSON(data, pretty = TRUE) "convert data.frame to JSON"
+cat(myjson)
+iris2 <- fromJSON(myjson) "convert JSON to data.frame"
+
+data.table
+
+https://riptutorial.com/data-table/example/13084/using--sd-and--sdcols
+
+.N "total number of rows"
+.T "vector with the row number in the table"
+.SD "the current subset of the data"
+.BY "the list of the values for a current subset"
+DT1[DT2, on, j] "join of two tables"
+by=.EACHI "special option available only with a join"
+split(DT, by) "split data table into a list"
+melt(DT, id.vars, measure.vars)  "transform to long format for multiple columns, use measure.vars = patterns(...)"
+uniqueN "number of distintic rows"
+DT[1:3, newvar := "Hello"] "Editing on a subset of rows"
+DT[, mpg_sq := NULL] "Removing a column"
+DT[, c("mpg_sq", "wt_sqrt") := .(mpg^2, sqrt(wt))] "Editing multiple columns"
+DT[, setattr(Species, "levels", c("set", "ver", "vir"))] "Modifying factor levels and other column attributes"
+setnames(DT, "mpg_sq", "mpq_squared") "Renaming columns"
+
+DT[, unlist(recursive=FALSE, lapply(
+    .(med = median, iqr = IQR),
+    function(f) lapply(.SD, f)
+)), by=.(Species, Bin), .SDcols=Petal.Length:Petal.Width] "Multiple summarizing functions"
+
+.SD refers to the subset of the data.table for each group, excluding all columns used in by.
+dt[ , lapply(.SD, function), by = varible] "te permite aplicar una funcion a todas las columnas y agruparlas en la que coloques como by"
+.SDcols specifies the columns of the data.table that are included in .SD
+
+movies1[ , lapply(.SD, mean), .SDcols = "critics_score", by = "genre"]
+
+cols_chosen <- c("mpg", "disp", "hp", "drat", "wt", "qsec")
+mtcars[ , lapply(.SD, mean), .SDcols = cols_chosen] 
+
+ff <- ff %>%
+mutate(thtr_rel_decade = ifelse(thtr_rel_year %in% 1970:1979 , "70's", ifelse(thtr_rel_year %in% 1980:1989, "80's", ifelse(thtr_rel_year %in% 1990:1999, "90's", ifelse(thtr_rel_year %in% 2000:2009, "2000's", ifelse(thtr_rel_year %in% 2010:2014, "2010's", "F"))))))
+ff$thtr_rel_decade <- as.factor(ff$thtr_rel_decade)
+
+ggpairs(ff, c(4,16,35))
+cols <- c(3, 4, 5, 7)
+ggpairs(movies2, columns = cols, diag = list(continuous = wrap("barDiag", colour = "#FA8072")), lower = list(continuous = wrap("smooth", colour = '#FA8072')))
+
+
+
+library(data.table)
+dt <- data.table(x, y, z)
+tables()
+
+subset rows
+dt[2,]
+
+solo filas que tengan un particular "a" en la columna "y"
+dt[dt$y == "a",]
+
+dt[c(2, 3)] solo te muestra la segunda y tercera columna
+
+subsetting columns
+difering form data.frame
+se hace por medio de expresiones que estan entre "{}"
+
+por ejemplo se puede pasar una una lista de funciones que se quiere hacer
+dt[, list(mean(x), sum(z))]
+dt[, table(y)]
+
+adding new columns very FAST!
+dt[,w:= z^2]
+
+para hacer copias es mejor usar la funcion copy()
+
+multiple operations
+dt[, m:= {tmp <- (x+y); log2(tmp+5)}]
+
+booleams columns
+dt[, a := x>0]
+
+para sacar la media de la suma de los valores  de las columnas "x" y "y" si se tiene determinado valor en una columna 
+dt[, b := mean(x+y), by = "a"]
+
+special variables
+dt[, N., by = x] "N. te muestra el numero de veces que se repite una valor agrupado con by que es otra columna que tiene un factor"
+
+para establecer key se uas setkey()
+setkey(dt, x)
+
+hace que sea muy rapido la unios
+setkey(dt, x)
+setkey(dt1, x)
+merge(dt, dt1)
+
+
+fread() "para leer archivos csv como data.table"
+data.table() "to create dta tables"
+
+Web Pages HTML Warning! some pages are restrictive and you can to make in troubles
+
+con <- "url"
+htmlcode <- readLines(con)
+close(con)
+
+better use handles
+ggogle <- handle("url")
+pg1 <- GET(handle = google, path = "/")
+pg2 <- GET(handle = google, path = "search")
+
+better with httr packege
+library(httr)
+con <- "url"
+html2 <- GET(con)
+content2 <- content(html2, as = "text")
+parHtml <- htmlParse(content2, asText = TRUE)
+xpathSApply(parseHtml, "//tittle", xmlValue)
+
+a veces toca utenticarse
+pg2 <- GET(con), authenticate("user", "password")
+
+Usefull functions
+file() "open a conection with a text file"
+gzfile() "open a conection to .gz file"
+bzfile() "open a conection to .bz2 file"
+?connetions
+remenber close the connections
+
+foreign package
+loads data from Minitab, S, SAS, SPSS, Stata, Systat
+basic function read.foo
+para Minitab read.mtp()
+
+Music Processing in R
+tuneR
+seewave
+
+git
+oauth_endpoints("Hello World")
+myappgi <- oauth_app("Hello World",
+  key = "13d1a9cffb10abe8bdbd",
+  secret = "90802588e0d3a26b01a19fb0f01c965f1a9f2ecd"
+)
+
+
+# 3. Get OAuth credentials
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+
+# 4. Use API
+gtoken <- config(token = github_token)
+req <- GET("https://api.github.com/rate_limit", gtoken)
+stop_for_status(req)
+content(req)
+
+zenodo
+myappze <- oauth_app("First API",
+  key = "gqAoEaGyELfUoQCcxyR2P28OD5sTkO8D4G37tvxy",
+  secret = "3sJKfNzsbZfDIg9UkEfGJkZbhV39NdF2jwuVADpBknIaJ8poLCcdRjIXyunm"
+)
+
+
+Data Frames pero son mas rapidas las Data Table
+Logicals ands and ors
+
+X[(X$var1 <= 3 & X$var3 > 11),]
+
+X[(X$var1 <= 3 | X$var3 > 15),]
+
+dealing with mising values
+use the wich() comand
+
+X[wich(X$var1 > 2),]
+
+sort(X$var1) "organiza los valores de la matriz"
+X[order(X$var1),] "organiza todos los datos de la matriz"
+
+se puede ordenar con muchas variables
+
+X[order(X$var1, X$var3),] "organiza los datos de una columna y los otros los de las otras los organiza con respecto a la anterior"
+
+con plyr
+library(plyr)
+arrage(X, var1) "organiza los datos de la matrix"
+
+make a table
+we can make a table with only one varible
+table(X$var1, useNA = "ifany")
+two dimensional tables with two vaibles
+table(X$var1, X$var2)
+
+
+X[X$var1 %in% c("a", "b")]
+
+xt <- xtabs(y ~ x + c, df) hace tablas de contingencia
+ftable(xt) "resume los datos de la tabla de contingencia"
+object.size()
+
+x <- c(1, 6, 7, 9, 121, 32, 45)
+seq( along = x) en lugar de seq_along()
+cut(df$var1, breaks = quantile(df$var1)) "corta dependiendo de los quantiles"
+
+library(Hmisc)
+cut2(df$var1, g = 4) "esta funsion te corta la varible el g grupos"
+
+library(plyr) "reshape data"
+ddply(df, .(column), summarize, sum = sum(count))
+
+libary(diplyr)
+
+sel <- select(df, var1:var3) "seleciona las columnas de 1 hasta el 3"
+fil <- filter(df, var1 < 10 & var5 > 30) "filtra las que cumplan con ese requisito"
+ar <- arrange(df, date) ordena segun la fecha
+ar <- arrange(df, des(date)) lo mismo pero desendentemente
+ren <- rename(df, oldname = newname)
+mut <- mutate(df, newcolumn = 2^3)
+
+marge() when you only have two matrix
+and join_all() when you have a lager number of matrix
+i <- match("columname", names(chicago)) "encuentra el indice de la columna"
+
+Text Editor
+tolower(stringvector) "make a string lowercase"
+toluper(stringvector) "make a string upercase"
+strplit(stringvector, sep) "separate de vectors"
+sub("old", "new", data)
+sub(pattern, replacement, x) "subtitution of a character in a string" NOTA: only the fisrt mach if you wanna subtituted all you might use 'gsub()'"
+e.g sub("_", "", names(reviews),)
+gsub(pattern, replacement, x) "subtitud all character that mach with the pattern"
+grep(pattern, x) "look for the pattern and retunr the index values of tha maches"
+e.g grep("Alameda", data$var1)
+grepl(pattern, x) "look for the pattern and retunr a vector with TRUE ,and False for each mach"
+
+format(seq.Date(as.Date('1978-01-01'), by = 'day', len = 7), "%a")
+format(seq.Date(as.Date('2000-01-01'), by = 'month', len = 12), "%b")
+
+Dates and Times
+%a "week day name abbreviation"
+%A "Full week day name"
+%b "Abbreviated month name"
+%B "Full month name"
+%c "date and time ‘"%a %b %e %H:%M:%S %Y"’"
+%C "Century (00-99): the integer part of the year divided by 100"
+%d "day in decimal number as decimal number (01-31)"
+%D "Date format such as ‘%m/%d/%y’"
+%e "Day of the month as decimal number (1-31)"
+%F "Equivalent to %Y-%m-%d"
+%g "The last two digits of the week-based year"
+%G "The week-based year (see ‘%V’) as a decimal number"
+%h "Equivalent to ‘%b’"
+%H "Hours as decimal number (00-23)"
+%I "Hours as decimal number (01-12)"
+%j "Day of year as decimal number (001-366)"
+%m "Month as decimal number (01-12)"
+%M "Minute as decimal number (00-59)"
+%n "Newline on output, arbitrary whitespace on input"
+%p "AM/PM indicator in the locale"
+%r "For output, the 12-hour clock time (using the locale's AM or PM)"
+%R "Equivalent to ‘%H:%M’"
+%S "Second as integer (00-61)"
+%t "Tab on output"
+%T "Equivalent to ‘%H:%M:%S’"
+%u "Weekday as a decimal number (1-7, Monday is 1)"
+%U "Week of the year as decimal number (00-53) using Sunday as the first day 1 of the week (and typically with the first Sunday of the year as day 1 of week 1)"
+%V "Week of the year as decimal number (01-53) as defined in ISO 8601"
+%w "Weekday as decimal number (0-6, Sunday is 0)"
+%W "Week of the year as decimal number (00-53) using Monday as the first day of week (and typically with the first Monday of the year as day 1 of week 1)"
+%x "Date.  Locale-specific on output, ‘"%y/%m/%d"’ on input"
+%X "Time.  Locale-specific on output, ‘"%H:%M:%S"’ on input"
+%y "Year without century (00-99)"
+%Y "Year with century"
+%z "Signed offset in hours and minutes from UTC"
+
+
+
+git bash
+
+pwd    "te muestra la ruta del directorio"
+
+clear  "limpia la consola"
+
+ls     "lista de todos los subdirectorios"
+
+cd     "cambia de directorio" el argumento es el directorio que quieres visitas,
+si no hay argumentos te lleva al directorio de tu hogar, con dos puntos te lleva al directorio superior al que estas
+
+mkdir  "crea un directorio" el argumento es el nombre del directorio nuevo
+
+touch  "crea un archivo vacio"
+
+cp     "copiar" el primer argumento es el archivo que quieres copiar y el segundo es adonde lo vas a copiar
+si le pones -r mueve el directorio al otro directorio
+ 
+rm     "borra" con -r se puede borrar todo el directorio
+
+mv     "mueve" mueve un archivo hacia un directorio
+tambien se usa para renonbrar archivos
+
+echo    "guarda lo que has creado"
+
+date    "fecha"
+
+git status
+
+git reset "quita un archivo del stage"
+
+git add -u  "agrega los archivos nuevos y eliminados"
+        -A  "agrega archivos"
+
+git commit -m "mensaje" "deja un mensaje"
+
+git push "guarda los mensajes"
+
+git checkout -b nombre  "crea una rama(una version diferente(alternativa) del directorio)"
+
+git branch "te muestra las ramas"
+
+git remote -v "informacion del repo"
+git remote add origin https://githud.com/6Javier7/Hello-word.git "abre el repo"
+
+git clone https://githud.com/yourUserNameHere/repoNameHere.git "crea un fork de otro repo"
+
+git rm --cached "Borra el archivo del git pero queda en tu disco duro"
+
+git push <remote> <branch> "saher from your local server to your remote"
+
+git log " muestra la historia"
+
+git tag  "Versiones"
+
+git branch -a "te muestras las brhanches del repo"
+git branch <nombre> "crea una rama"
+
+git branch "Te muestra las ramas yt la del asterico es la que esta en el head para cambiar con el checkout"
+
+git checkout "cambia la rama(head pointer)"
+
+git checkout -b iss53 "te crea una rama con nombre iss53 y la pone como rama de trabajo"
+
+git add alias."" status "crea un alias a git status"
+
+when you switch branches, Git resets your working directory to look like it did the last time you committed on that branch.  
+
+git branch -d " " "Elimina una rama"
+
+git branch -v "muestra los ultnimos commits"
+
+git merge "merge tus cambios en la rama que este"
+
+git branch --no-merged master "muestra los archivos que no se han colocado en el master"
+
+Many Git developers have a workflow that embraces this approach, such as having only code 
+that is entirely stable in their master branch?—?possibly only code that has been or will be released. 
+They have another parallel branch named develop or next that they work from or use to test stability
+
+Reprocible Research
+
+Literate Statistical programing document your analizis and similar put the code
+Weave literate program into a human readible lenguages
+
+use a editor file
+saved the code in a text format file
+indend your code
+
+library(knitr)
+
+knit2html("name.Rmd")
+browseURL("name.html")
+knit2html("borrador.Rmd")
+     if (interactive()) browseURL("borrador.html")
+     
+     unlink(c("borrador.Rmd", "borrador.html", "borrador.md"))
+
+kntr Ylhui Xie
+Markdown Jhon Gruber
+put r code in a document
+# pricipal title
+## secondary title
+### third title and so on
+
+*italics*
+**bold**
+
+- list item
+- list item
+- list item
+
+1. list item
+2. list item
+3. list item
+
+[name](link)
+
+text [1]
+[1]: link "name"
+
+new lines requires doble spaces
+
+{r firstchunk}
+
+{r global, warnings = F, messages = F} #its the fisrt chunk the others override
+{r firstchunk, echo = F} #no muestra el codigo
+{r plot, fig.height = 4, fig.widht = 5} #cambia la altura
+{r plot, results = "asis" or "hide"} #asis mean show the raw data   
+{r plot, cache = T} #guarda resultados que se demoran mucho
+
+`code r`
+p
+print(table, type = "html")
+
+.Rmd "Rmarkdown"
+.md "Markdown"
+.html "Html"
+
+ #data
+
+
+
+
+
